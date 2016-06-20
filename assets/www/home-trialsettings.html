@@ -1,0 +1,37 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Trial settings</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="inner_action detail_text4">
+    <div class="form-group available pro_set" ng-style="{'margin-bottom':'0'}">
+        <div class="col-sm-12">
+            <span id="updateCheck" class="errorStatus">{{status}}</span>
+            <div class="checkbox rememberBlock">
+                <input type="checkbox" checked value="1" id="trial_calls" name="trial_calls" ng-model="trial_calls" class="css-checkbox"> 
+                <label for="trial_calls" class="css-label lite-green-check">
+                    Accept trial calls
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group available pro_set">
+        <div class="col-sm-12">
+            <div class="checkbox rememberBlock">
+                <input type="checkbox" checked value="1" id="trial_sms" name="trial_sms" ng-model="trial_sms" class="css-checkbox">
+                <label for="trial_sms" class="css-label lite-green-check">
+                    Accept trial SMS 
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class=" col-sm-12">
+            <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="acceptTrial()"><strong>Update trial settings</strong></button>
+        </div>
+        <p class="terms" ng-style="{'padding': '1em'}"> You must first click the save button to apply changes. </p>
+    </div>
+</section>
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

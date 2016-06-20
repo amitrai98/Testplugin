@@ -1,0 +1,29 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">About me</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <span id="aboutmeStatusCheck" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="aboutme" class="col-sm-3 control-label">
+                About me
+            </label>
+            <div class="col-sm-9">
+                <textarea name="aboutme" id="aboutme" class="form-control" style="height: 51px;" ng-model="aboutme" autocorrect="off" autocapitalize="off"></textarea>
+                <span id="aboutmeError" class="errorStatus"></span>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="updateAboutMe()">Update</button>
+            </div>
+        </div>
+        <p class="terms"> You must first click the Update button to apply changes. </p>
+    </div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

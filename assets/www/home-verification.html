@@ -1,0 +1,32 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Verification</h1>
+    <!--a class="interface header-panel ui-link" href="javascript:;"></a-->
+</header>
+<div>
+    <section class="midArea">
+        <div class="detail_text_faq">
+            <h2>Verification requirements</h2>
+        </div>
+        <div class="detail-faq">
+            <p> You must be over eighteen years of age to register for Ringhop Pro. All details provided by you on verification must be true, accurate, current and complete. It is your responsibility to update and inform us of any changes to the details provided on registration. Although certain parts of our website may be used by anyone who visits without requiring registration, some of the Services require you to register in order to enable us to verify your identity. </p>
+            <p> When registering, you will be asked to create a password and will be responsible for maintaining the confidentiality of your password and restricting access to your computer, as you will be accountable for any activities conducted under your password. If you believe that someone has accessed your account without authorisation, please contact us immediately. </p>
+        </div>
+        <div class="detail_text_faq">
+            <h2>Materials you provide</h2>
+        </div>
+        <div class="detail-faq">
+            <p> By submitting content on our website or otherwise providing content to us in connection with the Services ('Materials'), you grant us a royalty-free, perpetual, irrevocable and non-exclusive right and license to (a) use, reproduce, distribute, display, modify and edit these Materials in connection with the Services and (b) sublicense these rights. We will not pay you any fees for these Materials and reserve the right in our sole discretion to remove or edit them at any time. You also warrant and represent that you have all rights necessary to grant us these rights. We permit you to post Materials on our website in accordance with our procedures provided that the content is not illegal, obscene, abusive, threatening, defamatory or otherwise objectionable to us. </p>
+            <p> Applications are processed 7 days a week. After you submit your application, you will receive an sms message and email with followup instructions. </p>
+        </div>
+        <div class="detail_text">
+            <a href="javascript:;" ng-click="forward('right','#/home/prodashboard')"><h2 class="start">Go Back</h2></a>
+            <p class="terms neither">Have a question? <a href="javascript:;" class="ui-link" ng-click="forward('left','#/home/contactus')">Contact us</a></p>
+        </div>
+    </section>
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>
+      
+      

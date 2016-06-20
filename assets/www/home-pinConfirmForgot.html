@@ -1,0 +1,73 @@
+<div>
+  <header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">
+      Verify Mobile
+    </h1>
+    <!--a class="interface header-panel ui-link" href="javascript:;" ng-click="navAction()"></a-->
+  </header>
+  <section class="midArea">
+    <div class="form-horizontal ui-content">
+      <span id="pinMatchFG_status" class="errorStatus"></span>
+      <div class="form-group">
+        <label class="col-sm-3 control-label" id="pin_send_status" >
+          <strong class="succesStatus">
+            Password reset pin sent to your phone.
+          </strong>
+        </label>
+        <label for="inputEmail7" class="col-sm-3 control-label" id="pinnumber_label">
+          Enter 4 digit pin to verify Phone
+        </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="inputEmail7" name="pinnumber" ng-model="pinNumber">
+        </div>
+        <span id="pinFG_error" class="col-sm-9 errorStatus"></span>
+        <div class="col-sm-9">
+          In order to complete registration, you must enter the pin number that you received via sms.
+        </div>
+      </div>
+      <div class="form-group">
+        <div class=" col-sm-12">
+          <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="pinMatchFGAction()">
+            Verify Mobile
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+  </section>
+</div>
+<!-- <div id="sidebar-wrapper" class="side-menu" >
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a ui-sref="home">
+                Home
+            </a>
+        </li>
+        <li class="ring">
+            <a href="javascript:;">RINGHOP</a>
+        </li>
+        <li>
+            <a ui-sref="home.howitworks">How it works</a>
+        </li>
+        <li>
+            <a href="javascript:;">Overview</a>
+        </li>
+        <li class="ring">
+            <a href="javascript:;">ACCOUNT</a>
+        </li>
+        <li>
+            <a href="javascript:;">Support</a>
+        </li>
+        <li>
+            <a ui-sref="home.register">Create account</a>
+        </li>
+        <li>
+            <a ui-sref="home.login">Sign in</a>
+        </li>
+    </ul>
+</div>
+ -->

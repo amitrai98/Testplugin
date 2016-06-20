@@ -1,0 +1,119 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Set call/text rates</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <span id="rate_status" class="errorStatus"></span>
+        <h3 class="setratesH3">Call and text rates</h3>
+        <div class="form-group">
+            <label for="perminute_rate" class="col-sm-3 control-label">
+                Per minute call rate (default)
+            </label>
+            <div class="col-sm-9 country">
+                <!--span class="country1"></span-->
+                <select name="perminute_rate" id="perminute_rate" ng-model="perMinuteCode" class="selectpicker form-control extra" ng-options="min_rate.id  as min_rate.value for  min_rate in per_minute_select" ng-init = "perMinuteCode = per_minute_select[0].id" style="padding-left:90px;">
+                
+                <!--select name="perminute_rate" id="perminute_rate" ng-model="perMinuteCode" class="selectpicker form-control country-code setratesCallSelect" ng-options="min_rate as min_rate.value for min_rate in per_minute_select" ng-selected="perMinuteCode.id"-->
+                    <!--option value="1.99" selected="selected">$1.99 per min</option>
+                    <option value="0.49">$0.49 per min</option>
+                    <option value="0.99">$0.99 per min</option>
+                    <option value="1.49">$1.49 per min</option>
+                    <option value="1.99">$1.99 per min</option>
+                    <option value="2.49">$2.49 per min</option>
+                    <option value="2.99">$2.99 per min</option>
+                    <option value="3.49">$3.49 per min</option-->
+                </select>
+                
+            </div>
+        </div>
+        <span id="perminute_status" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="pertext_rate" class="col-sm-3 control-label" id="reg_phone_label">
+                Per text msg received rate (default)
+            </label>
+            <div class="col-sm-9">
+                <select name="pertext_rate" id="pertext_rate" ng-model="perTextCode" class="selectpicker form-control extra" ng-options="text_rate.id  as text_rate.value for  text_rate in per_text_select" ng-init = "perTextCode = per_text_select[0].id">
+                <!--select name="pertext_rate" id="pertext_rate" ng-model="perTextCode" class="selectpicker form-control country-code setratesMsgSelect" ng-options="text_rate as text_rate.value for text_rate in per_text_select" ng-selected="perTextCode.id"-->
+                    <!--option value="0.2" selected="selected">$0.2 per txt msg</option>
+                    <option value="0.10">$0.10 per txt msg</option>
+                    <option value="0.15">$0.15 per txt msg</option>
+                    <option value="0.20">$0.20 per txt msg</option>
+                    <option value="0.25">$0.25 per txt msg</option>
+                    <option value="0.30">$0.30 per txt msg</option>
+                    <option value="0.35">$0.35 per txt msg</option>
+                    <option value="0.40">$0.40 per txt msg</option>
+                    <option value="0.45">$0.45 per txt msg</option>
+                    <option value="0.50">$0.50 per txt msg</option-->
+                </select>
+            </div>
+        </div>
+        <span id="pertext_status" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="pertext_send_rate" class="col-sm-3 control-label" id="reg_phone_label">
+                Per text msg sending rate (default)
+            </label>
+            <div class="col-sm-9">
+                <select name="pertext_send_rate" id="pertext_send_rate" ng-model="perSendText" class="selectpicker form-control extra" ng-options="send_rate.id  as send_rate.value for  send_rate in per_text_send_select" ng-init = "perSendText = per_text_send_select[0].id">
+                <!--select name="pertext_rate" id="pertext_rate" ng-model="perTextCode" class="selectpicker form-control country-code setratesMsgSelect" ng-options="text_rate as text_rate.value for text_rate in per_text_select" ng-selected="perTextCode.id"-->
+                    <!--option value="0.2" selected="selected">$0.2 per txt msg</option>
+                    <option value="0.10">$0.10 per txt msg</option>
+                    <option value="0.15">$0.15 per txt msg</option>
+                    <option value="0.20">$0.20 per txt msg</option>
+                    <option value="0.25">$0.25 per txt msg</option>
+                    <option value="0.30">$0.30 per txt msg</option>
+                    <option value="0.35">$0.35 per txt msg</option>
+                    <option value="0.40">$0.40 per txt msg</option>
+                    <option value="0.45">$0.45 per txt msg</option>
+                    <option value="0.50">$0.50 per txt msg</option-->
+                </select>
+            </div>
+        </div>
+        <span id="perTextsend_status" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="perphoto_rate" class="col-sm-3 control-label" id="reg_phone_label">
+                Received photo rate (default)
+            </label>
+            <div class="col-sm-9">
+                <select name="perphoto_rate" id="perphoto_rate" ng-model="perPhotoCode" class="selectpicker form-control extra" ng-options="photo_rate.id  as photo_rate.value for  photo_rate in per_photo_select" ng-init = "perPhotoCode = per_photo_select[0].id" style="padding-left: 72px;">
+                <!--select name="pertext_rate" id="pertext_rate" ng-model="perTextCode" class="selectpicker form-control country-code setratesMsgSelect" ng-options="text_rate as text_rate.value for text_rate in per_text_select" ng-selected="perTextCode.id"-->
+                    <!--option value="0.2" selected="selected">$0.2 per txt msg</option>
+                    <option value="0.10">$0.10 per txt msg</option>
+                    <option value="0.15">$0.15 per txt msg</option>
+                    <option value="0.20">$0.20 per txt msg</option>
+                    <option value="0.25">$0.25 per txt msg</option>
+                    <option value="0.30">$0.30 per txt msg</option>
+                    <option value="0.35">$0.35 per txt msg</option>
+                    <option value="0.40">$0.40 per txt msg</option>
+                    <option value="0.45">$0.45 per txt msg</option>
+                    <option value="0.50">$0.50 per txt msg</option-->
+                </select>
+            </div>
+        </div>
+        <span id="perPhotosend_status" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="pervideo_rate" class="col-sm-3 control-label" id="reg_phone_label">
+                Per video call rate (default)
+            </label>
+            <div class="col-sm-9">
+                <select name="pervideo_rate" id="pervideo_rate" ng-model="perVideoCode" class="selectpicker form-control extra" ng-options="video_rate.id  as video_rate.value for  video_rate in per_video_select" ng-init = "perVideoCode = per_video_select[0].id" style="padding-left:90px;">
+                </select>
+            </div>
+        </div>
+        <span id="pervideo_status" class="errorStatus"></span>
+        <div class="form-group">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="updateRates()">
+                    Update rates
+                </button>
+            </div>
+        </div>
+        <p class="terms" id="terms1">
+            Rates are only applicable on received calls and received text messages.
+        </p>
+    </div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

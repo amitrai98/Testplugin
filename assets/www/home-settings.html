@@ -1,0 +1,110 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="settingsbackButton()"></a>
+    <h1 class="ui-title">Settings</h1>
+</header>
+<div id="wrapper" style="position:absolute;z-index:1;top:0; bottom:0; left:0;width:100%">
+
+<!-- Nanda -->
+    <section class="inner_action settingSecNew settingLiIcon">
+        <ul>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="homeLink()"><span class="glyphicon glyphicon-home"></span>Home</button>
+            </li> -->
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="statusAndAvail()"><span class="glyphicon glyphicon-plus"></span>Status & availability</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="editProfileLink()"><span class="glyphicon glyphicon-pencil"></span>Edit profile</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="viewProfile()">
+                    <span class="glyphicon glyphicon-user"></span>View Profile
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="notification()"><span class="glyphicon glyphicon-comment"></span>Notifications settings</button>
+            </li>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth"><span class="glyphicon glyphicon-lock"></span>Privacy settings</button>
+            </li> -->
+            <li ng-if="isPro == true">
+                <button type="button" class="btn btn-default fullwidth" ng-click="proset()"><span class="glyphicon glyphicon-cog"></span>PRO settings</button>
+            </li>
+            <li ng-if="isPro == true">
+                <button type="button" class="btn btn-default fullwidth" 
+                ng-click="voiceGreet()"><span class="glyphicon glyphicon-volume-up"></span>Voicemail greeting</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="blockingPage()"><span class="glyphicon glyphicon-ban-circle"></span>Blocking</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="resetPassword()"><span class="glyphicon glyphicon-refresh"></span>Reset Password</button>
+            </li>
+
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="myLibrary()"><span class="glyphicon glyphicon-th"></span>My library</button>
+            </li> -->
+            <li ng-if="isPro == false">
+                <button type="button" class="btn btn-default fullwidth" ng-click="userStats()"><span class="glyphicon glyphicon-stats"></span>My stats</button>
+            </li>
+        </ul>
+        <ul>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth"><span class="glyphicon glyphicon-lock"></span>My account</button>
+            </li> -->
+            <!-- Nanda -->
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="viewCredits()"><span class="glyphicon glyphicon-credit-card"></span>View Credit Balance</button>
+            </li>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="buyCredits()"><span class="glyphicon glyphicon-edit"></span>Update payment method</button>
+            </li> -->
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="buyCredits()"><span class="glyphicon glyphicon-usd"></span>Buy credits</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="billingHistory()"><span class="fa fa-history" style="margin-right: 15px;"></span>Billing history</button>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="deactivateAcc()"><span class="glyphicon glyphicon-remove" style="opacity:0.3;"></span>Deactivate account</button>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="helpandsupport()"><span class="glyphicon glyphicon-exclamation-sign"></span>Help & support</button>
+            </li>
+        </ul>
+
+        <!-- Nanda -->
+
+        <ul>
+            <li class="aboutSpan">
+                <button type="button" class="btn btn-default fullwidth" ng-click="about()">
+                    About
+                    <span>version number: 0.2.7</span>
+                    <span>Build date: May 30, 2016</span><!-- Nanda-->
+                </button>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>Sign out</button>
+            </li>
+        </ul>
+         <div class="earn">
+            <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+        </div>
+    </section>
+
+    <!--div class="phpdebugbar-openhandler-overlay" style=""></div>
+    <div class="ui-loader ui-corner-all ui-body-b ui-loader-verbose">
+        <span class="ui-icon-loading">
+        </span>
+        <h1>Loading</h1>
+    </div-->
+</div>

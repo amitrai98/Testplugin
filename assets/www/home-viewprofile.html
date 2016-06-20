@@ -1,0 +1,238 @@
+<!-- =Header Start= -->
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <!--a class="interfac header-back" ng-click="backButton()"></a-->
+    <h1 class="ui-title">
+        {{profileInfo.user.displayname}}
+    </h1>
+    <a href="javascript:;" class="interface header-share">
+        <span></span>
+    </a>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<!-- =Header End/= -->
+<div class="listing-page">
+    <!-- =Middle Content Frame Start= -->
+    <div class="listing-dtl-row" style="padding-top:40px; padding-bottom:70px;">
+        <div class="slider-Container pad0" id="profile_div">
+            <!-- =clicked Image Section= -->
+            <div class="main-slideImg-Section pad0" ng-click="openPopup()">
+                <div class="col-lg-4 col-md-6 col-sm-8 img-Frame">
+                    <img ng-src="{{profileInfo.profile_image_big}}" alt="" title="" class="img-responsive" height="150" width="150" />
+                </div>
+                <div class="photos-tally">
+                    <span class="listing-details-photos-tally"><span>1</span>/6</span>
+                </div>
+            </div><!-- =clicked Image Section end/= -->
+        </div><!-- =Slider Frame Start End/= -->
+
+        <!-- =Description Content Frame Start= -->
+        <div class="row listing-description">
+            <div class="listing-details-h1">
+                <h2 class="f-18 nameTitle"> {{profileInfo.user.displayname}} </h2>
+                <span class="">{{profileInfo.user.profile.location}}</span><br />
+                <span class="text-muted" ng-if="profileInfo.profile.gender == 'M'">Male</span>
+                <span class="text-muted" ng-if="profileInfo.profile.gender == 'F'">Female</span>
+            </div>
+            <!-- =Top-Content Section End/= -->
+            <!-- =full content Section= -->
+            <div class="collapse-panel-row">
+                <!-- =Showing Content start= -->
+                <div class="row m-0" id="shortDesc">
+                    <div class="f-14 m-t-20">
+                        {{profileInfo.online_status}}
+                    </div>
+                    <div class="text-center icon-more">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </div>
+                </div>
+                <!-- =Showing Content start= -->
+
+                <!-- =Hide Cotent Frame Start = -->
+                <div class="hide-content-row" ng-click="discription()">
+                    <div>
+                        <!--ul>
+                            <li> Hmo for Four People </li>
+                            <li> Three Bedrooms </li>
+                            <li> Two Receptions </li>
+                            <li> Kitchen/Breakfast Room </li>
+                            <li> Close to Hospitals </li>
+                            <li> Downstairs WC </li>
+                        </ul>
+                        <br /-->
+                        <div class="row m-0">
+                            <b>About me</b>
+                            <br>
+                            {{profileInfo.user.profile.aboutme}}
+                            <!--Investment Opportunity. Offered with tenants in situ until July. The property has an hmo for 4 people, is located in a prime location for lettings, close to the Headington hospitals, Brookes University and has good transport links nearby. Early viewings recommended. <br>
+                            <br>
+                            <b>Description</b> <br>
+                            Investment Opportunity. Offered with tenants in situ until July. The property has an hmo for 4 people, is located in a prime location for lettings, close to the Headington hospitals, Brookes University and has good transport links nearby. Early viewings recommended. <br>
+                            <br>
+                            <b>Entrance Hall</b>&nbsp; <br>
+                            Door to the side aspect. Staircase rising to first floor with storage underneath. Doors to lounge, dining room and cloakroom. <br>
+                            <br>
+                            <b>Lounge</b>&nbsp;10' 2" plus bay x 9' 2" plus recess ( 3.10m plus bay x 2.79m plus recess ) <br>
+                            Sash window to front aspect. Feature fireplace plus surround. Radiator. <br>
+                            <br>
+                            <b>Dining Room</b>&nbsp;10' 8" x 10' 8" ( 3.25m x 3.25m ) <br>
+                            Sash window to front aspect. Radiator. Fireplace. <br>
+                            <br>
+                            <b>Cloakroom</b>&nbsp; <br>
+                            Window to side aspect. Low level W.C. Wash Hand Basin. <br>
+                            <br>
+                            <b>Kitchen/breakfast Room</b>&nbsp;14' 5" max x 11' 2" plus recess ( 4.39m max x 3.40m plus recess ) <br>
+                            Natural wood units built into wall and floor. Breakfast bar with units beneath. Boiler. Laminate wood flooring. Stainless steel sink and drainer. Gas cooker. Plumbing for washing machine and space for fridge freezer. Double glazed patio doors leading to garden. <br>
+                            <br>
+                            <b>Landing</b>&nbsp; <br>
+                            Stairs from hallway. Access to all first floor rooms. Access to loft which is part boarded. Window to side aspect. Cupboard above stairs. <br>
+                            <br>
+                            <b>Bedroom One</b>&nbsp;13' 4" x 10' 2" ( 4.06m x 3.10m ) <br>
+                            Sash window to front aspect. Original fireplace. Radiator. <br>
+                            <br>
+                            <b>Bedroom Two</b>&nbsp;10' 10" x 10' 2" ( 3.30m x 3.10m ) <br>
+                            Window to front aspect. Original fireplace. Radiator. <br>
+                            <br>
+                            <b>Bedroom Three</b>&nbsp;12' 9" x 7' ( 3.89m x 2.13m ) <br>
+                            Window to rear aspect. Radiator. <br>
+                            <br>
+                            <b>Bathroom</b>&nbsp; <br>
+                            Window to side aspect. Bath with shower overhead. Wash hand basin. Low level W.C. Part tiled. Radiator. <br>
+                            <br>
+                            <b>Front Garden</b>&nbsp; <br>
+                            Off road parking for one vehicle. Path to front door and lawn. <br>
+                            <br>
+                            <b>Rear Garden</b>&nbsp; <br>
+                            Partially enclosed. Path to shed at rear and lawn. <br>
+                            <br>
+                            1. Money laundering regulations - Intending purchasers will be asked to produce identification documentation at a later stage and we would ask for your co-operation in order that there will be no delay in agreeing the sale. <br>
+                            2. These particulars do not constitute part or all of an offer or contract. <br>
+                            3. The measurements indicated are supplied for guidance only and as such must be considered incorrect. <br>
+                            4. Potential buyers are advised to recheck the measurements before committing to any expense. <br>
+                            5. Connells has not tested any apparatus, equipment, fixtures, fittings or services and it is the buyers interests to check the working condition of any appliances. <br>
+                            6. Connells has not sought to verify the legal title of the property and the buyers must obtain verification from their solicitor. <br>
+                            <h3 class="listing-desc-header top"> <br>
+                            </h3-->
+                        </div>
+                    </div>
+                </div>
+                <!-- =Hide Cotent Frame End/ = -->
+            </div><!-- =full content Section End/= -->
+
+        </div><!-- =Description Content Frame End/= -->
+
+        <!-- =Save To fav List Frame Start= -->
+        <!--div class="save-list-section">
+            <label class="container-fluid f-16">
+                <strong>First listed</strong>
+            </label>
+            <div class="row m-0 list-dtl">
+               <div class="col-lg-4 " style="float:left;"> 1st Feb 2014 </div>
+	           <div class="col-lg-2 pull-right text-right"> £320,000</div>
+            </div>
+        </div--><!-- =Save To fav List Frame end/= -->
+
+        <!-- =Save to contacts Start= -->
+        <div class="container-fluid">
+            <div class="save-to-contact-box" ng-click="saveClick()">
+                <a href="javascript:;" ng-show="saveContacts">
+                    <div class="icon" ><span class="glyphicon glyphicon-star"></span></div>
+                    <label class="lbl">Save to contacts</label>
+                </a>
+                <a href="javascript:;" ng-show="!saveContacts">
+                    <div class="icon" ><span class="glyphicon glyphicon-ok"></span></div>
+                    <label class="lbl">Property saved</label>
+                </a>
+            </div>
+        </div><!-- =Save to contacts End/= -->
+    </div><!-- =Middle Content Frame End/= -->
+
+    <!-- =Footer Start= -->
+    <footer data-role="footer" data-position="fixed" data-id="footer-listing-details" data-tap-toggle="false" class="footer-section container-fluid" data-theme="b" role="contentinfo">
+        <div class="row m-0">
+            <!-- =Phone Call Col Start= -->
+            <div class="width50">
+                <div class="foot-box" ng-if="profileInfo.user.profile.ringhop_number == ''">
+                    <a data-role="button"  role="button" class="">
+                    <span class="phoneCall">Phone</span> No Number</a>
+                </div>
+                <div class="foot-box" ng-if="profileInfo.user.profile.ringhop_number != ''">
+                    <a data-role="button"  role="button" class="">
+                    <span class="phoneCall">Phone</span>(207) 555-5555</a>
+                </div>
+            </div>
+            <!-- =Phone Call Col End/= -->
+            <!-- =Message Col Start= -->
+            <div class="width50">
+                <div class="foot-box">
+                    <a data-role="button"  role="button" class="" href="#/home/reply{{profileInfo.user.id}}">
+                        <span class="sendText">Txt</span>
+                        Send Txt
+                    </a>
+                </div>
+            </div>
+        <!-- =Message Col End/= -->
+        </div>
+    </footer>
+    <!-- =Footer End/= -->
+</div>
+
+<!-- =Slider- Popup Start= -->
+<!--div class="slider-popup-frame" >
+    <span class="glyphicon glyphicon-remove-sign icon-hide"></span-->
+    <!--ul>
+        <li class= "slider">
+            <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage" ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+        </li>
+    </ul>
+
+</div--><!-- =Slider- Popup End/= -->
+<!-- =Slider- Popup Start= -->
+<div class="slider-popup-frame">
+    <!--span class="glyphicon glyphicon-remove-sign icon-hide"></span-->
+    <div class="top_bar">
+        <div class="cross_popup" ng-click="closePopup()">
+            <div class="icon_block">
+                <img src="img/x.png">
+            </div>
+        </div>
+        <!-- <div class="cross_play" ng-click="playSlider()">
+            <div class="icon_block">
+                <img src="img/play.png">
+            </div>
+        </div> -->
+        <div class="cross_next" ng-click="prevSlide()">
+            <div class="icon_block">
+                <img src="img/left_arrow.png">
+            </div>
+        </div>
+        <div class="cross_prev" ng-click="nextSlide()">
+            <div class="icon_block">
+                <img src="img/right_arrow.png">
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div class="img_block">
+    	<input type="hidden" class="tiny" ng-model="carouselIndex2">
+    	<ul ng-if="playSlide == false" rn-carousel rn-carousel-index="carouselIndex2" rn-carousel-buffered class="carousel1" id="slider_ul">
+            <li ng-repeat="slide in slides2 track by slide.id" ng-class="'id-' + slide.id">
+                <div ng-style="{'background-image': 'url(' + slide.img + ')'}"  class="bgimage">
+                    ##{{slide.id}}
+                </div>
+            </li>
+        </ul>
+        <!-- <ul ng-if="playSlide == true" rn-carousel rn-carousel-index="carouselIndex2" rn-carousel-auto-slide rn-carousel-buffered class="carousel1" id="slider_ul1">
+            <li ng-repeat="slide in slides2 track by slide.id" ng-class="'id-' + slide.id">
+                <div ng-style="{'background-image': 'url(' + slide.img + ')'}"  class="bgimage">
+                    ##{{slide.id}}
+                </div>
+            </li>
+        </ul> -->
+        <!--input type="number" class="tiny" ng-model="carouselIndex2"-->
+        <!--img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage" ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}"-->
+    </div>
+    <div class="slider-bottom">
+        Image {{carouselIndex2 + 1}} of 6
+    </div>
+</div><!-- =Slider- Popup End/= -->

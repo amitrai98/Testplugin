@@ -1,0 +1,67 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back"  ng-click="backButton()"></a>
+    <h1 class="ui-title">Notification Settings</h1>
+    <!-- Nanda -->
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea" id="phonesettings">
+    <div class="form-horizontal ui-content">
+        <span id="notifyCheck" class="errorStatus">{{notifyCheck}}</span>
+        <div class="form-group available notification">
+            <div class="col-sm-12">
+                <div class="checkbox rememberBlock">
+                    <input type="checkbox" checked value="{{notifyServerData.sms}}" id="sms" name="sms" ng-model="isSMS" class="css-checkbox">
+                    <label for="sms" class="css-label sms lite-green-check">
+                        SMS notifications
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="checkbox rememberBlock">
+                    <input type="checkbox" checked value="{{notifyServerData.inapp}}" id="inapp" name="inapp" ng-model="isInAPP" class="css-checkbox" ng-change="InAPPChange()">
+                    <label for="inapp" class="css-label sms lite-green-check">
+                        In-App notifications
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frequency" class="col-sm-3 control-label" id="expiremonth_label">Minimum time between notifications</label>
+            <div class="col-sm-9" style="margin-left: -5px;">
+                <!-- <pre>{{notifyHrList}}</pre>
+                <pre>{{notifyServerData}}</pre> -->
+                <p class="selectBoxCustom" id="notificationTime">{{frequency.value}}</p>
+                <select name="frequency" id="frequency" ng-model="frequency" class="form-control country-code currPeriod card-expiry-month" ng-options="notifyHrObj  as notifyHrObj.value for notifyHrObj in notifyHrList" ng-init = "frequency = notifyHrList[0]" ng-style="{'padding-left': '105px'}">
+
+                <!-- <select id="frequency" name="frequency" ng-model="frequency" class="form-control country-code currPeriod card-expiry-month">
+                    <option selected="selected" value="">(Select frequency)</option>
+                    <option value="60">1 Hour</option>
+                    <option value="360">6 Hours</option>
+                    <option value="720">12 Hours</option>
+                    <option value="1440">24 Hours</option> -->
+                </select>
+             </div>
+             <label for="summary" class="col-sm-3 control-label" id="expiremonth_label" style="margin-top: 10px;">Send me a daily summary notification</label>
+                <div class="col-sm-9" style="margin-left: -5px;">
+                <p class="selectBoxCustom" id="frequencyVal">{{dailyalert}}</p>
+                <select name="dailyalert" id="frequency" ng-model="dailyalert" class="form-control country-code currPeriod card-expiry-month" ng-style="{'padding-left': '105px'}">
+                <option value="(Select daily alert)">(Select daily alert)</option>
+                <option selected="selected" value="yes">Yes</option>
+                <option value="no">No</option>
+                </select>
+             </div>
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12" style="margin-top: -5px;">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="updateStatus()">Update settings</button>
+            </div>
+            <p class="terms" style="margin-left: 15px;"> You must first click the update settings to apply changes. </p>
+        </div>
+
+
+    </div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center" style="padding-bottom: 0px;">ringhop © {{date | date:'yyyy'}}</p>
+</section>

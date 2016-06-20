@@ -1,0 +1,88 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton1()"></a>
+    <h1 class="ui-title">
+        Contacts
+    </h1>
+    <a href="javascript:;" ng-click="addPro_UserContact()" class="addProContact">
+        <span class="glyphicon glyphicon-plus"  style="margin-right: 8px !important;"></span>
+    </a>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div>
+    <section class="inner_action settingSec">
+        <div class="form-input">
+            <a href="javascript:;" ng-click="removeSearchText()">
+                <span class="glyphicon glyphicon-remove" ng-show="RemoveIcon" ></span>
+            </a>
+            <i class="glyphicon glyphicon-search" id="searchIcon"></i>
+            <input id="search-basic" type="text" class="searchData displaySearch_contact" data-type="search" value="" name="search-basic" ng-model="searchText" ng-keyup="OnKeyupRemove($event)" placeholder="Search my contacts" autocorrect="off" autocapitalize="off"> <!-- Nanda 10 june -->
+        </div>
+        <div class="col-sm-6 buttonSelect_contact">
+            <button type="button" class="btn btn-default buttonMessage_contact fullwidthWhite_contact" ng-click="sortContact()">
+                A to Z
+            </button>
+            <button type="button" class="btn btn-default buttonMessage_contact fullwidthBluemsg_contact" ng-click="resetContact()">    
+                Recent
+            </button>
+        </div> 
+        <div class="result_line">
+            <!--p>sorted by recently added</p-->
+        </div>
+        <div style="clear:both;"></div>
+    </section>
+    <div class="no_msg" ng-show="noContactDiv">
+        {{noContacts}} 
+    </div>
+    <div ng-repeat="contact in contacts | orderBy:sortType:sortReverse | filter:searchFilter">
+        <section class="dashboard">
+            <div class="contact" id="contact_{{contact.contact_user_id}}">
+                <a href="javascript:;" ng-click="forward('left','#/home/callerhistory{{contact.contact_user_id}}')">
+                    <div class="image">
+                         <img ng-src="{{contact.profile_images.profile_image}}" alt="" style="height: 5.0em;">
+                    </div>
+                    <div class="text">
+                        <h2 style="margin-bottom: 0px !important;margin-top:15px !important;">{{contact.displayname}}</h2>
+                        <p style="height: 20px;line-height: 20px;overflow: hidden;margin-bottom: 0">{{contact.profile_status}}</p>
+                        <h6 style="margin-top: 0px;">{{contact.online_status}}</h6>
+                    </div>
+                </a>
+                <div class="setting">
+                    <a href="javascript:;" ng-click="openPopup(contact.contact_user_id, contact.pro,contact.status)"><span class="glyphicon glyphicon-cog "></span></a>
+                </div>
+                <div class="clr"></div>
+                <div class="clr"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="popupContact" id="{{contact.contact_user_id}}" style="display:none"> 
+                <p>{{contact.displayname}}</p>
+                <ul>
+                    <li ng-if="contact.ringhop_number != '' && contact.ringhop_number != null">
+                        <a href="tel:+ {{contact.ringhop_number}}"><span class="glyphicon glyphicon-earphone"></span><span class="popupContactLi">Call {{contact.ringhop_number}}</span></a>
+                    </li>
+                    <li>
+                        <a href="#/home/reply{{contact.contact_user_id}}"><span class="glyphicon glyphicon-envelope"></span><span class="popupContactLiText">Send text</span></a>
+                    </li>
+                    <li ng-click="videoCallFromContacts(contact.contact_user_id,contact.displayname)" ng-show="showVideoIcon">
+                        <a href="javascript:;">
+                            <span class="glyphicon glyphicon-facetime-video" style="font-size:17px;"></span><span class="popupContactLiText">Video Call</span>
+                        </a>
+                    </li>
+                    <li ng-click="deleteContact(contact.contact_user_id)">
+                        <a href="javascript:;" class="cancel"><span class="glyphicon glyphicon-remove"></span><span class="popupContactLiDelete">Delete contact</span></a>
+                    </li>
+                    <li ng-click="cancelPopup(contact.contact_user_id)">
+                        <a href="javascript:;" class="cancel CenterText">Cancel</a>
+                    </li>
+                </ul>
+            </div> 
+        </section>
+    </div>
+    <section class="earn" ng-style="{'position':'absolute','width':'100%','text-align':'center'}">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>
+
+
+  

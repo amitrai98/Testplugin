@@ -1,0 +1,55 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back"  ng-click="backButton()"></a>
+    <h1 class="ui-title">My status</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea" id="phonesettings">
+    <div class="form-horizontal ui-content" ng-form="noteForm">
+        <span id="availStatusCheck" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="userStatus" ng-class="{errorStatus: !noteForm.$valid}" class="col-sm-3 control-label">
+                My status
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="userStatus" placeholder="e.g. 'at the beach..available around 5pm'" ng-model="profile_status" name="profile_status" autocorrect="off" autocapitalize="off" ng-maxlength="60">
+                <span class="errorStatus" ng-show="noteForm.$error.maxlength">Please enter no more than 60 characters.</span>
+            </div>
+
+        </div>
+
+        <div class="form-group available">
+
+            <div class="col-sm-12">
+            Set availability
+                <div class="checkbox rememberBlock">
+                    <input type="checkbox" checked value="1" id="call_available" name="call_available" ng-model="call_available" class="css-checkbox">
+                    <label for="call_available" class="css-label lite-green-check">
+                        Accepting Calls -
+                        <span style="font-weight:normal">I am available for phone calls</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group available">
+            <div class="col-sm-12">
+                <div class="checkbox rememberBlock" style="margin-top: -10px;">
+                    <input type="checkbox" checked value="1" id="sms_available" name="sms_available" ng-model="sms_available" class="css-checkbox">
+                    <label for="sms_available" class="css-label lite-green-check">
+                        Accepting Texts -
+                        <span style="font-weight:normal">I am available for text messages</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue statusDisabled" ng-click="updateStatus()" ng-disabled="!noteForm.$valid" style="margin-top: -10px;">Update phone settings</button>
+            </div>
+            <p class="terms" style="margin-left: 15px;"> You must first click the save button to apply changes. </p>
+        </div>
+
+    </div>
+</section>
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

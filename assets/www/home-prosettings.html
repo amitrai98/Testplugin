@@ -1,0 +1,67 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Pro settings</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div>
+    <section class="inner_action detail_text4">
+        <p class="revDiv">Your share is {{proSetData.rev_share}}% </p>
+        <!-- <h3>Manage PRO settings</h3> -->
+        <ul>
+            <li class="voicelist">
+                <a href="javascript:;" ng-click="voicegreeting()" class="ui-btn ui-btn-icon-left ui-btn-icon-right ui-corner-all voice-setup">
+                <span class="titlevoice" ng-if="!greetingshow">Click here to setup your voice greeting</span>
+                <span class="titlevoice" ng-if="greetingshow" style="color:blue;font-size:15px;font-weight:normal;">My voice greeting</span>
+                <span class="fa fa-play-circle playicon" ng-if="greetingshow"></span>
+                <span class="voicesetup" ng-if="!greetingshow">Setup</span>
+                <span class="voicesetup" ng-if="greetingshow">edit</span>
+              </a>
+            </li>
+          
+        </ul>
+        <ul style="margin-bottom:20px;">
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="setCall()"><span class="glyphicon glyphicon-plus"></span>Set my call / text / photo rates</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="viewEarning()"><span class="glyphicon glyphicon-plus"></span>View my earnings</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="forwardSetting()"><span class="glyphicon glyphicon-plus"></span>Make money while you sleep</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="trialSetting()"><span class="glyphicon glyphicon-plus"></span>Trial settings</button>
+            </li>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="promoteUrself()"><span class="glyphicon glyphicon-plus"></span>Promote yourself</button>
+            </li>  -->          
+        </ul>
+        
+        <h3>Promote and share..</h3>
+        <ul>
+            <li>
+                <a href="tel:+ ">
+                    <button type="button" class="btn btn-default fullwidth">
+                        <span class="glyphicon glyphicon-earphone"></span>
+                        <span class="greyCallHistory">{{proSetData.ringhop_number}}</span>
+                    </button>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" ng-click="viewProfile()">
+                    <button type="button" class="btn btn-default fullwidth">
+                        <span class="glyphicon glyphicon-share"></span>
+                        <span class="blueCallHistory">ringhop.com/{{proSetData.displayname}}</span>
+                    </button>
+                </a>
+            </li>
+        </ul>
+        <p style="color:#007DFD; margin-left: 10px;">Send me an sms and email with this info</p>
+        <p style="margin-left: 10px;font-size:13px;">Add your new phone number and profile link to your Twitter, instagram, facebook etc. Start earning money from your social fans today.</p>
+    </section>
+
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>
+    

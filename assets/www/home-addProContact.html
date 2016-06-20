@@ -1,0 +1,39 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">{{displayContactHeading}}</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+    	<div class="right-inner-addon ">
+		    <!-- <i class="glyphicon glyphicon-search"></i> -->
+		    <a href="javascript:;" ng-click="removeTextSearch()">
+	        	<span class="glyphicon glyphicon-remove" ng-show="hideRemoveIcon" ></span>
+	        </a>
+		    <input type="search" class="form-control" placeholder="{{placeholder}}" ng-model="searchContact" ng-keyup="OnKeyupRemove($event)" autocorrect="off" autocapitalize="off"/>
+		</div>
+		<div class="searchIconContact">
+			<a href="javascript:;" ng-click="searchThisContact()">
+				<span class="glyphicon glyphicon-search">
+				</span>
+			</a>
+		</div>
+		<div class="no_result_msg" ng-show="Show_no_result_msg">
+			<p>{{no_result}}</p>
+		</div>
+		<div class="contactAlertError" ng-show="contactAlertErrorShow">
+			{{ alreadyAddedContact }}
+		</div>
+		<div class="form-group" style="padding-bottom:0px; margin-bottom:0px;margin-top: 15px;" ng-show="contactAddBtn">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="saveContact()">Add to Contacts</button>
+            </div>
+		</div>
+	    <p style="margin: 20px 0 0px !important;">
+            Type a username above and click add to contacts
+        </p>
+	</div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

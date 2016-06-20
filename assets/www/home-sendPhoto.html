@@ -1,0 +1,69 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Send photo</h1>
+    <!--a class="interface header-panel ui-link" href="javascript:;"></a-->
+</header>
+<div>
+    <section class="midAreaUpload">
+        <div class="loaderId" style="display:block;" id="checkLoader">
+            <img src="img/loader.gif">
+        </div>
+        <!--div  class="errorStatus"></div-->
+        <div id="uploadChat_id" class="col-sm-3 control-label" ng-show="div_visible">
+            Send a photo message
+        </div>
+        <div class="col-sm-12" ng-show="div_visible">
+            <button type="button" class="btn btn-default fullwidth uploadbtn" ng-click="uploadChatPhoto()">    
+                <span class="glyphicon glyphicon-camera"></span>
+                Take or upload photo
+            </button>
+            <p class="terms">
+                You can send a photo message to this user by clicking the button above. Includes advanced option to set an image expiration time, etc.
+            </p>
+            
+        </div>
+    <div class="col-sm-12" ng-show="!div_visible">
+            <div class="col-sm-12">
+                <div id="media_error" class="errorStatus" style="margin-top: -10px;padding-bottom: 5px;margin-left: -10px;font-weight: bold;"></div>
+                <button type="button" class="btn btn-default fullwidth"  ng-if="pro_data == true" ng-click="saveChatPic()" style="width: 110%;margin-left: -13px;" id="sendBtn">
+                    <a href="javascript:;" class="okshout">
+                     <span class="glyphicon glyphicon-ok okphotospan"></span> 
+                    </a>
+                    Send photo              
+                </button>
+                <button type="button" class="btn btn-default fullwidth sendshoutbtn" ng-if="pro_data == false" ng-click="saveChatPic()" id="sendBtn"> 
+                    Send photo              
+                </button>
+            </div>
+        <div class="form-group shoutfeature" style="margin-bottom: 7px;" id="checkform">
+            <div class="col-sm-9">
+                <input id="media_price" name="media_price" ng-model="media_price"  placeholder="Enter media price" autocomplete="off" autocorrect="off" type="number" step="0.1" min="0" max="99" ng-if="pro_data == true" style="margin-left: -13px;width: 110%;text-indent: 0;"> 
+            </div>
+        </div>
+        <div class="col-sm-9 shout-text" id="optionalcommentdiv">
+            <input type="text" class="form-control replysendphoto" id="last_name_upgrade" placeholder="optional Photo comment" ng-model="last_name" name="last_name" value="" autocorrect="off" autocapitalize="off" style="color: rgb(169, 169,169) !important;padding-top: 0px;display: block;">
+            <span id="lastname_error" class="errorStatus"></span>
+        </div>
+            <button type="button" class="btn btn-default fullwidth" ng-click="cancelUpload()" id="cancelBtn">   
+                Cancel            
+            </button>
+            <img src="" class="captureCenter" id="chat_image" width="295" height="350"/>
+    
+    </div>
+    <div class="overEdit" ng-show="takePhotoOpt" ng-click="cancelPhoto()"></div>
+        <div class="editProfileImg" ng-show="takePhotoOpt">
+            <ul>
+                <li ng-click="takePhoto()"><a href="javascript:;">Take Photo</a></li>
+                <li ng-click="photoLibrary()"><a href="javascript:;">Choose Existing</a></li>
+            </ul>
+            <ul class="cancel">
+                <li ng-click="cancelPhoto()"><a href="javascript:;">Cancel</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>
+      
+      

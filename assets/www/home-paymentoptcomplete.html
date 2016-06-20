@@ -1,0 +1,17 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Payment Info</h1>
+    <!--a class="interface header-panel ui-link" href="javascript:;"></a-->
+</header>
+<div>
+    <section class="midArea">
+        <div class="detail_text detail_text3">
+            <p class="terms">Your payment info has been updated successfully. </p>
+            
+            <a ui-sref="home.prodashboard"><h2 class="complete">Pay info saved. Continue.. </h2></a>
+        </div>
+    </section>
+    <section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+	    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+	</section>
+<div>

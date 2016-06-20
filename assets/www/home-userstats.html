@@ -1,0 +1,145 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">My stats-{{headervalue}}</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div>
+    <div class="col-sm-4 button_select">
+        <button type="button" class="btn btn-default buttonStats" ng-class="callActiveClass" id="billable_user" ng-click="calls()">Calls</button>
+        <button type="button" class="btn btn-default buttonStats " ng-class="msgActiveClass" id="trial_user" ng-click="messages()">Mess...</button>
+        <button type="button" class="btn btn-default buttonStats" ng-class="photoActiveClass" id="trial_user" ng-click="photos()">Photos</button>
+        <button type="button" class="btn btn-default buttonStats" ng-class="tipActiveClass" id="trial_user" ng-click="tips()">Tip</button>
+    </div>
+    <!-- <div class="popupContact popupBlock" ng-show="networkPopup" data-role="popup" style="height:140px !important;width: 260px;">
+        <span ng-click="closeNetworkPopup()">
+          <img src="img/cross.png" class="crossPopup" />
+        </span>
+        <div role="main" class="ui-content" id="deletecontent">
+          <p style="color:black;">There is a network Connection Problem. Please click OK to go back.</p>
+        </div>
+        <div class="center borderTopSolid" id="okdiv" style="margin-top: -10px;">
+          <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" style="font-size: 17px;color:#428bca !important;margin-top: 10px;"ng-click="goBackAgain()">OK</a>
+        </div>
+    </div> -->
+    <div class="earning earningNEW">
+        <ul ng-show="callSection">
+            <li>
+                <a href="javascript:;" class="callHistory tableHead">
+                <!-- <a href="javascript:;" class="callHistory" ng-show="!noMessageDiv"> -->
+                    <span class="left" style="width:45%;"><b>Call Date</b></span>
+                    <span class="blank left" style="width:30%;"><b>Duration</b></span> 
+                    <span class="right" style="width:25%;"><b>Amount</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+            <li ng-repeat="historyKey in userstatsData">
+                <a href="javascript:;" class="callHistory" ng-if="historyKey.call_kind == 'audio'">
+                    <span class="datenew left" style="width:45%;margin-top:-5px;">
+                        <span style="width:100%;"><b>{{historyKey.displayname}}</b></span>
+                        <span style="width:100%; line-height: 30px !important;">{{historyKey.call_start}}</span>
+                    </span>
+                    <span class="blank left" style="width:30%;">{{historyKey.call_duration}} mins</span>
+                    <span class="valuechange valuechangeNEW right" style="width:15%;"><b>${{historyKey.call_amount}}</b></span>
+                    <span class="clr"></span>
+                </a>
+                <a href="javascript:;" class="callHistory" ng-if="historyKey.call_kind == 'video'">
+                    <span class="datenew left" style="width:45%;margin-top:-5px;">
+                        <span style="width:100%;"><b>{{historyKey.displayname}}</b></span>
+                        <span style="width:100%; line-height: 30px !important;">{{historyKey.call_start}}</span>
+                    </span>
+                    <span class="videoSpan">
+                        <i class="fa fa-video-camera"></i>
+                    </span>
+                    <!-- <span style="font-size:17px;padding-left: 10px;" ng-class="{basedColor: item.calltype == 'missed'}">
+                        <i class="fa fa-video-camera"></i>
+                    </span> -->
+                    <span class="blank left" style="width:30%;">{{historyKey.call_duration}} mins</span>
+                    <span class="valuechange valuechangeNEW right" style="width:25%;"><b>${{historyKey.call_amount}}</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+        </ul>
+         <ul ng-show="messageSection">
+            <li>
+                <a href="javascript:;" class="callHistory tableHead">
+                <!-- <a href="javascript:;" class="callHistory" ng-show="!noMessageDiv"> -->
+                    <span class="left" style="width:45%;"><b>Message Date</b></span>
+                    <span class="blank left" style="width:30%;"><b>Message to</b></span> 
+                    <span class="right" style="width:25%;"><b>Charge</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+            <li ng-repeat="historyKey in userstatsData">
+                <a href="javascript:;" class="callHistory">
+                    <span class="datenew left" style="width:45%;">{{historyKey.created_at}}</span>
+                    <span class="blank left" style="width:30%;">{{historyKey.displayname}}</span>
+                    <span class="valuechange valuechangeNEW right" style="width:25%;"><b>${{historyKey.charge_rate}}</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+        </ul>
+         <ul ng-show="photoSection">
+            <li>
+                <a href="javascript:;" class="callHistory tableHead">
+                <!-- <a href="javascript:;" class="callHistory" ng-show="!noMessageDiv"> -->
+                    <span class="left" style="width:40%;"><b>Media Date</b></span>
+                    <span class="blank left" style="width:35%;"><b>Photo from</b></span> 
+                    <span class="right" style="width:25%;"><b>Price</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+            <li ng-repeat="historyKey in userstatsData">
+                <a href="javascript:;" class="callHistory">
+                    <span class="datenew left" style="width:40%;">{{historyKey.created_at}}</span>
+                    <span class="blank left" style="width:35%;">{{historyKey.displayname}}</span>
+                    <span class="valuechange valuechangeNEW right" style="width:25%;"><b>${{historyKey.charge_amount}}</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+        </ul>
+        <ul ng-show="tipSection">
+            <li>
+                <a href="javascript:;" class="callHistory tableHead">
+                <!-- <a href="javascript:;" class="callHistory" ng-show="!noMessageDiv"> -->
+                    <span class="left" style="width:45%;"><b>Tip Date</b></span>
+                    <span class="blank left" style="width:30%;"><b>Tip to</b></span> 
+                    <span class="right" style="width:25%;"><b>Amount</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+            <li ng-repeat="historyKey in userstatsData">
+                <a href="javascript:;" class="callHistory">
+                    <span class="datenew left" style="width:45%;">{{historyKey.created_at}}</span>
+                    <span class="blank left" style="width:30%;">{{historyKey.displayname}}</span>
+                    <span class="valuechange valuechangeNEW right" style="width:25%;"><b>${{historyKey.charge_rate}}</b></span>
+                    <span class="clr"></span>
+                </a>
+            </li>
+        </ul>
+        <div class="midArea no_msg" ng-show="noMessageDiv">
+            {{noMessage}}
+        </div>
+    </div>
+    <section class="midArea paginate" ng-show="paginateSection">
+        <div class="form-horizontal ui-content">
+            <div class="form-group">
+                <div class="col-xs-6 prev-arrow">
+                    <button class="btn btn-default fullwidth fullwidth_blue prev" id="prevBtn" ng-disabled='prevDisabled' ng-click="prevBtn(statsType)" ng-model="prevDisabled">
+                        <span id="arrow"></span>
+                        Prev
+                    </button>
+                </div>
+                <div class=" col-xs-6 next-arrow">
+                    <button class="btn btn-default fullwidth fullwidth_blue next" id="nextBtn" ng-disabled='nextDisabled' ng-click="nextBtn(statsType)" ng-model="nextDisabled">
+                        <span id="arrow1"></span>
+                        Next
+                    </button>
+                </div>
+            </div>
+            <span class="errorStatus"></span>
+        </div>
+    </section>
+</div>
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>  
