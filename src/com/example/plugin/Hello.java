@@ -281,22 +281,28 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     @Override
     public void onCallConnected() {
-        mCallBackContext.success(Constants.CONNECTION_CREATED);
-        mParentProgressDialog.setVisibility(View.GONE);
-        mVideoCallBtn.setEnabled(true);
-        mMicBtn.setEnabled(true);
-        mDisconnectBtn.setEnabled(true);
-        mSwipeBtn.setEnabled(true);
-        mSwipeBtn.setVisibility(View.VISIBLE);
-        mCallView.setEnabled(true);
-        mCallView.setOnClickListener(this);
+        JSONObject json = getJson(Constants.CONNECTION_CREATED, SUCCESS);
+        mCallBackContext.successMessage(json);
 
-        mTimerTxt.setBase(SystemClock.elapsedRealtime());
-        mTimerTxt.start();
+        if(mCallPerMinute != null && mCallPerMinute.equals("0")){
+            JSONObject json_callstarted = getJson(Constants.CALL_STARTED, SUCCESS);
+            mCallBackContext.successMessage(json_callstarted);
 
-        visibleCallingViews();
-        callThread();
+            mParentProgressDialog.setVisibility(View.GONE);
+            mVideoCallBtn.setEnabled(true);
+            mMicBtn.setEnabled(true);
+            mDisconnectBtn.setEnabled(true);
+            mSwipeBtn.setEnabled(true);
+            mSwipeBtn.setVisibility(View.VISIBLE);
+            mCallView.setEnabled(true);
+            mCallView.setOnClickListener(this);
 
+            mTimerTxt.setBase(SystemClock.elapsedRealtime());
+            mTimerTxt.start();
+
+            visibleCallingViews();
+            callThread();
+        }
     }
 
     private void visibleCallingViews() {
@@ -348,6 +354,25 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     public void onCallStarted() {
         JSONObject json = getJson(Constants.CALL_STARTED, SUCCESS);
         mCallBackContext.successMessage(json);
+
+        if(mCallPerMinute != null && !mCallPerMinute.equals("0")){
+
+//            mCallBackContext.success(Constants.CALL_STARTED);
+            mParentProgressDialog.setVisibility(View.GONE);
+            mVideoCallBtn.setEnabled(true);
+            mMicBtn.setEnabled(true);
+            mDisconnectBtn.setEnabled(true);
+            mSwipeBtn.setEnabled(true);
+            mSwipeBtn.setVisibility(View.VISIBLE);
+            mCallView.setEnabled(true);
+            mCallView.setOnClickListener(this);
+
+            mTimerTxt.setBase(SystemClock.elapsedRealtime());
+            mTimerTxt.start();
+
+            visibleCallingViews();
+            callThread();
+        }
     }
 
     @Override
@@ -401,9 +426,11 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
             mCallBackContext.successMessage(json);
         }
         if (mSession.getSubscriber() != null) {
-            mCallBackContext.success(Constants.CALL_END);
+            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
+            mCallBackContext.successMessage(json);
         } else {
-            mCallBackContext.success(Constants.DISCONNECT_SUCCESS);
+            JSONObject json = getJson(Constants.DISCONNECT_SUCCESS, SUCCESS);
+            mCallBackContext.successMessage(json);
         }
 
         mSession.disconnect();

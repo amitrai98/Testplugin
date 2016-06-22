@@ -1,0 +1,111 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Add Pro Contact</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+    	<div class="right-inner-addon ">
+		    <!-- <i class="glyphicon glyphicon-search"></i> -->
+		    <a href="javascript:;" ng-click="removeTextSearch()">
+	        	<span class="glyphicon glyphicon-remove" ng-show="hideRemoveIcon" ></span>
+	        </a>
+		    <input type="search" class="form-control" placeholder="Find Pro" ng-model="searchContact" ng-keyup="OnKeyupRemove($event)"/>
+		</div>
+			<i class="glyphicon glyphicon-search" id="searchIconContact" ng-click="searchContactFunc()"></i>
+		<div class="no_result_msg" ng-show="Show_no_result_msg">
+			<p style="text-align:center;color: #333 !important;">No pro found with this name. Please try again</p>
+		</div>
+		<div class="form-group" style="padding-bottom:0px; margin-bottom:0px;margin-top: 15px;" ng-show="contactAddBtn">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="saveContact()">Add to Contacts</button>
+            </div>
+		</div>
+	    <p style="margin: 20px 0 0px !important;">
+            Type a username above and click add to contacts
+        </p>
+	</div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>
+
+
+//++++++++++++++controller++++++++++++++++++++++//
+mainApp.controller( "addProContactController", function( $scope, $http, $state, $stateParams, $rootScope ) {
+    $scope.hideRemoveIcon = false;
+    $scope.contactAddBtn = false;
+    $scope.Show_no_result_msg = false;
+    $scope.OnKeyupRemove = function(e){
+        console.log(e);
+        console.log(e.keyCode);
+        $scope.hideRemoveIcon= true;
+        if ($scope.searchContact =="") {
+            $scope.hideRemoveIcon = false;
+        }
+    };
+
+    $scope.removeTextSearch = function(){
+        console.log($scope.searchContact);
+        $scope.searchContact = "";
+        $scope.hideRemoveIcon = false;
+        $scope.contactAddBtn = false;
+    };
+
+    $scope.searchContactFunc = function(){
+        var getSearchData = {};
+        getSearchData['responsetype'] = 'json';
+        getSearchData[''] = $scope.searchContact;
+        var responsePromise = $http.post(BASE_URL+"addcontacts",JSON.stringify(getSearchData));
+        responsePromise.success( function( data, status, headers, config ) {
+            console.log( JSON.stringify( data ) );
+            
+        } );
+        responsePromise.error( function ( data, status, headers, config ) {
+            console.log( JSON.stringify( data ) );
+            if(navigator.connection.type == Connection.NONE) {
+                checkConnection();
+            }
+        } );
+    };
+
+    $scope.saveContact = function(){
+        var saveSearchData = {};
+        saveSearchData['responsetype'] = 'json';
+        saveSearchData[''] = $scope.searchContact;
+        var responsePromise = $http.post(BASE_URL+"savecontact",JSON.stringify(saveSearchData));
+        responsePromise.success( function( data, status, headers, config ) {
+            console.log( JSON.stringify( data ) );
+            
+        } );
+        responsePromise.error( function ( data, status, headers, config ) {
+            console.log( JSON.stringify( data ) );
+            if(navigator.connection.type == Connection.NONE) {
+                checkConnection();
+            }
+        } );
+
+    };
+
+
+
+})
+
+.right-inner-addon span{
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  padding: 5px;
+  color: #fff;
+  position: absolute;
+  right: -10px;
+  margin-top: 6px;
+}
+.addProContact{
+  float: right;
+  margin-top: -23px;
+  font-size: 17px;
+  margin-right: -7px
+}
+.no_result_msg{
+  margin-top: 20px;
+}

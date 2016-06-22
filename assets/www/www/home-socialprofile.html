@@ -1,0 +1,188 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back"  ng-click="backButton()"></a>
+    <h1 class="ui-title">Profile</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<!--div class="header clearfix">
+    <div class="container">
+        <div class="pull-left">
+          <a href="javascript:;" ng-click="forward('right','#/home/affter_login')" ui-sref="home.affter_login"><img src="img/logo.png"></a>
+        </div-->
+
+        <!--div class="login-box pull-right"> 
+            <a href="#">LOGIN</a>
+            <a href="#" class="" data-toggle="modal" data-target="#myModal">SINGUP</a>
+        </div-->
+    <!--/div-->
+    
+    <!--div class="modal new fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Login / Signup</h3>  
+                <div class="modal-body">
+                    <button class="custome">SINGUP</button>
+                    <p>-or-<p>
+                    <button class="custome">LOGIN</button>
+                </div>
+            </div>
+        </div>
+    </div--> 
+<!--/div-->
+<section class="welcome" style="padding-top:20px;">
+ <section class="welcome"> 
+    <div class="container">
+        <div class="clearfix Vicky">
+            <h2 class="pull-left">{{user_data.displayname}}</h2>
+            <h3 class="pull-right" ng-if="user_data.userprofile.display_callstatus == 1"><label class="dot"></label>AVAILABLE</h3>
+        </div>
+
+        <div class="call-box clearfix" ng-if="user_data.userprofile.display_ringhop == 1">
+            <div class="call-logo pull-left"><img src="img/call-icon.png" ></div>
+            <div class="call-number"><p>{{usr_number}}</p><label><img src="img/small-ico.png"></label></div>
+        </div>
+    </div>
+</section>
+
+<section class="home-mid">
+    <div class="container">
+        <div class="btn-group clearfix" ng-if="loginid != userid">
+            <a href="tel:+ {{user_data.userprofile.ringhop_number}}">Call</a>
+            <a href="javascript:;" ng-click="forward('left','#/home/reply{{userid}}')">Message</a>
+            <a href="javascript:;" ng-click="saveContact()" id="savecontact">Save Contact</a>
+        </div>
+        <ul class="social-link">
+            <li class="clearfix" ng-repeat="data in profileData">
+                <a href="javascript:;">
+                    <div class="social-icon">
+                        <img ng-if="data.link_type == 'facebook'" ng-src="img/facebook.png">
+                        <img ng-if="data.link_type == 'twitter'" ng-src="img/twitter.png">
+                        <img ng-if="data.link_type == 'linkedin'" ng-src="img/linkedin.png">
+                        <img ng-if="data.link_type == 'amazon'" ng-src="img/amazon.png">
+                        <img ng-if="data.link_type == 'instagram'" ng-src="img/instagram.png">
+                        <img ng-if="data.link_type == 'my-web'" ng-src="img/my-web.png">
+                        <img ng-if="data.link_type == 'tumblr'" ng-src="img/tubmir.png">
+                        <img ng-if="data.link_type == 'vine'" ng-src="img/vine.png">
+                    </div>
+                    <div class="followers">
+                        <p>@ {{data.profile_name}}</p>
+                        <span>{{data.link_type}}: 3,343 followers</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div> 
+                </a>
+            </li>
+          
+            <!--li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/tubmir.png">
+                    </div>
+                    <div class="followers">
+                        <p>vicky spicky</p>
+                        <span>tubmir</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                 </a>
+            </li>
+
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/linkedin.png">
+                    </div>
+                    <div class="followers">
+                        <p>vickyspickyig</p>
+                        <span>Linkedin</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+
+
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/instagram.png">
+                    </div>
+                    <div class="followers">
+                        <p>@vickyspickyig</p>
+                        <span>instagram: 343 followers </span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+          
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/fb.png">
+                    </div>
+                    <div class="followers">
+                        <p>vickyspicky</p>
+                        <span>Facebook: 3,343 followers</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+          
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/amazon.png">
+                    </div>
+                    <div class="followers">
+                        <p>Amazon Wishlist</p>
+                        <span>http://Wishlist.amazon.com/1234vc/</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/my-web.png">
+                    </div>
+                    <div class="followers">
+                        <p>My website</p>
+                        <span>http://vickyspicky.com</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+        
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/work-phone.png">
+                    </div>
+                    <div class="followers">
+                        <p>(786) 343-2343</p>
+                        <span>work phone</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li>
+        
+            <li class="clearfix">
+                <a href="#">
+                    <div class="social-icon">
+                        <img src="img/vine.png">
+                    </div>
+                    <div class="followers">
+                        <p>@vickyspicky</p>
+                        <span>vine: 3,343 followers</span>
+                    </div>
+                    <div class="arrow pull-right"><img src="img/arrow.png"></div>
+                </a>
+            </li-->
+        </ul>
+    </div>
+</section> 
+
+<footer>
+    <div class="container">
+        <img src="img/footer.png">
+        <p>ringhop @ 2014-{{date | date:'yyyy'}}</p>
+    </div>
+</footer> 

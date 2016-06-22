@@ -1,0 +1,137 @@
+<header class="text-messages" ng-controller="menuController" id="header" ng-style="{'padding': '7px 0'}">
+    <a class="interface header-back" ng-click="backFromReply();"></a>
+    <h1 class="ui-title">
+    <p style="width: 60%;margin: 0 auto;height: 25px;margin-left: 38px;" ng-click="popupLink()"> {{username}}</p></h1>
+    <a href="javascript:;" data-rel="popup" class="interface header-options ui-link"></a>
+    <a class="videopanel" href="javascript:;" ng-click="videoStart()" ng-show="showVideoIcon">
+      <span class="glyphicon glyphicon-facetime-video" style="font-size:17px;"></span>
+    </a>
+    <a class="interface header-panel ui-link" href="javascript:;" ng-click="popupLink()"></a>
+</header>
+<div class="popupContact popupBlock" ng-show="networkPopup" data-role="popup" style="width: 260px;">
+    <span ng-click="closeNetworkPopup()">
+      <img src="img/cross.png" class="crossPopup" />
+    </span>
+    <div role="main" class="ui-content" id="deletecontent">
+      <p style="color:black;">There is a network Connection Problem. Please click OK to go back.</p>
+    </div>
+    <div class="center borderTopSolid" id="okdiv" style="margin-top: -10px;">
+      <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" style="font-size: 17px;color:#428bca !important;margin-top: 10px;"ng-click="goBackAgain()">OK</a>
+    </div>
+</div>
+
+<div class="popupContact popupBlock" ng-show="blockPopup" data-role="popup" style="height:120px !important;width: 260px;top:30% !important;">
+    <span ng-click="closeBlock()">
+      <img src="img/cross.png" class="crossPopupblock" />
+    </span>
+    <div role="main" class="ui-content" id="deletecontent">
+      <p style="color:black;">{{blockMsg}}</p>
+    </div>
+    <div class="center borderTopSolid" id="okdiv" style="margin-top: 0px;">
+      <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" style="font-size: 18px;color:#428bca !important;margin-top: 8px;font-weight:600;" ng-show="gotoBlockUsers" ng-click="blockLink()">Blocked users</a>
+      <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" ng-show="closePopupBlock" style="font-size: 18px;color:#428bca !important;margin-top: 8px;font-weight:600;"ng-click="closeBlock()">Ok</a>
+    </div>
+</div>
+
+<div class="popup" ng-show="popupShow" data-role="popup" id="BMPopup" data-position-to="window" ng-if=" replyChats.originator_profile.pro == 2 " ng-style="{'height':'225px'}">
+    <p>&nbsp;</p>
+     <span ng-click="closeHeaderPopup()">
+        <img src="img/cross.png" class="crossPopup" />
+    </span>
+    <ul>
+        <li><a href="tel:+ {{replyChats.originator_profile.ringhop_number}}"><span class="glyphicon glyphicon-user"></span>Call me:{{replyChats.originator_profile.ringhop_number}}</a></li>
+        <li ng-click="sendTip()"><a href="javascript:;"><span class="glyphicon glyphicon-user"></span>Send a tip</a></li>
+        <li ng-click="viewProfile();"><a href="javascript:;"><span class="glyphicon glyphicon-user"></span>View profile</a></li>
+        <li id="user_block" ng-if="replyChats.isBlocked == true" class="blockedMessage"><span class="glyphicon glyphicon-ban-circle"></span>already blocked</li>
+        <li id="user_block" ng-if="replyChats.isBlocked == false" ng-click="blockUser()"><span class="glyphicon glyphicon-ban-circle"></span>Block this user</li>
+        <li ng-click="deleteHistory()"><span class="glyphicon glyphicon-remove" ></span>Delete chat history</li>
+    </ul>
+</div>
+<div class="popup" ng-show="popupShow" data-role="popup" id="BMPopup" data-position-to="window" ng-if=" replyChats.originator_profile.pro != 2 ">
+    <p>&nbsp;</p>
+     <span ng-click="closeHeaderPopup()">
+        <img src="img/cross.png" class="crossPopup" />
+    </span>
+    <ul>
+        <li ng-click="viewProfile();"><a href="javascript:;"><span class="glyphicon glyphicon-user"></span>View profile</a></li>
+        <li id="user_block" ng-if="replyChats.isBlocked == true" class="blockedMessage"><span class="glyphicon glyphicon-ban-circle"></span>already blocked</li>
+        <li id="user_block" ng-if="replyChats.isBlocked == false" ng-click="blockUser()"><span class="glyphicon glyphicon-ban-circle"></span>Block this user</li>
+        <li ng-click="deleteHistory()"><span class="glyphicon glyphicon-remove" ></span>Delete chat history</li>
+    </ul>
+</div>
+<!-- <div class="me loaderId" style="display:block;">
+    <img src="img/loader.gif">
+</div> -->
+<div class="popup1 msgImgPopup" ng-show="imgPopupShow" data-role="popup" id="imgPopup">
+    <span ng-click="closeMsgPopup()">
+        <img src="img/cross.png" class="crossPopup" />
+    </span>
+    <img src="img/photo_msg.jpg" class="msgImage" id="bigMsgImg"/>
+
+</div>
+<div id="wrapper">
+<section ng-style="{'top': '40px'}"class="text-msg" id="text_section">
+    <div id="msg_container" style="overflow-y:auto" load-more-data>
+        <!-- <div class="loaderId1" style="display:block;">
+        messages
+         <img src="img/loader.gif"></div> -->
+    </div>
+    <!--div class="me">
+        <p>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="you">
+        <p cla>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="me"><p>so how was the day</p><span>Tue,Aug 19,2014 9:06 AM</span></div>
+    <div class="me">
+        <p>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="me">
+        <p>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="me">
+        <p>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="you">
+        <p cla>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="you">
+        <p cla>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="you">
+        <p cla>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div>
+    <div class="you">
+        <p cla>so how was the day</p>
+        <span>Tue,Aug 19,2014 9:06 AM</span>
+    </div-->
+   <div class="clr"></div>
+</section>
+<div class="clr"></div>
+<section class="midArea nopadding" id="footer">
+    <div class="form-horizontal ui-content footer">
+        <div class="row custom_row">
+            <div class="col-xs-2 custom-col">
+                <div class="camera" ng-click="cameraClick()"></div>
+            </div>
+            <div class="reply-text_new col-xs-7">
+               <input autocorrect="off" autocapitalize="off" placeholder="Type your message here" name="chat_entry" type="text" value="" ng-model="chatInput" id="input_chat" style="font-size: 14px;font-weight: bold;">
+            </div>
+            <!-- <div class="col-xs-3 send-button margin0"> -->
+            <div class="col-xs-3 sendMsgBtn"> <!-- Nanda -->
+                <a href="javascript:;" class="btn btn-default fullwidth fullwidth_blue" id="send_message" style="color:#fff;font-weight: bold;" ng-click="submitChat($event)">Send</a>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <span id="availStatusCheck" class="errorStatus"></span>
+    </div>
+</section>
+</div>

@@ -1,0 +1,158 @@
+<header ng-controller="menuController">
+    <!--a class="interfac header-back" href="login.html"></a-->
+    <h1 class="ui-title"><img src="img/ringhop-logo.png" style="height:20px;" /></h1>
+    <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a>
+</header>
+<div style="overflow-y: auto;" class="settingLiIcon">
+<div class="col-md-12 img_thumb imgPart">
+        <a href="javascript:;" onclick="back('left','#/home/editProfile')" class="profileblock">
+            <div class="row" style="font-size: 0.75em;">
+                <div class="col-xs-12 col-md-12 row" ng-style="{'max-height':'100px','overflow':'hidden'}">
+                    <p class="edit">edit photo</p>
+                    <div class="thumb">
+                        <span class="img-responsive" alt="..." id="profile_pic"></span>
+                        <!-- <img class="img-responsive" alt="..." id="profile_pic"> -->
+
+                    </div>
+                    <div class="caption captionInherit">
+                        <h2 id="username"></h2>
+                        <p class="location_status" id="user_loc" style="word-wrap:break-word;padding-bottom:18px;" ></p>
+                        <p class="textaddresss" id="user_gender"></p>
+                        <p class="textaddresss" id="user_location"></p>
+                        <p class="btmtitle" id="usersStatus" style="padding-top:18px;">  </p>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </a>
+        <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+    <section class="inner_action after-login img_thumb_profile">
+        <div ng-show="proSection">
+            <a href="javascript:;" onclick="back('left','#/home/prosettings')">
+                <div class="gray_box">
+                    <div class="prouser">
+                         <small class="fleft">my private #</small>
+                         <small class="fright">PRO settings</small>
+                         <div class="clr"></div>
+                    </div>
+                    <h2 id="pro_number"> </h2>
+                </div>
+            </a>
+        </div>
+        <div ng-show="femaleProLink">
+            <a href="javascript:;" ng-click="forward('left','#/home/learnmore')">
+                <div class="orange_box">
+                    <h2 style="font-size: 15px;margin-bottom: 8px !important;">Become a Ringhop Pro & earn money</h2>
+                    <p style="font-size: 0.9em;">Get a FREE private number and charge for txt, call and media services</p>
+                </div>
+            </a>
+        </div>
+        <div ng-show="submitReviewPro">
+            <a href="javascript:;" ng-click="forward('left','#/home/prodashboard')">
+                <div class="green_box">
+                    <h2 style="font-size: 15px;margin-bottom: 8px !important;"><span class="glyphicon glyphicon-time" style="color:black; margin-left: 9px;"></span>Your application is being reviewed</h2>
+                </div>
+            </a>
+        </div>
+        <div ng-show="actionRequired">
+            <a href="javascript:;" ng-click="forward('left','#/home/prodashboard')">
+                <div class="red_box">
+                    <h2 style="font-size: 15px;margin-bottom: 8px !important;">Action required to complete your application.</h2>
+                    <p style="font-size: 0.9em;">Please click here to review action items.</p>
+                </div>
+            </a>
+        </div>
+        <div ng-show="completeProSetup">
+            <a href="javascript:;" ng-click="forward('left','#/home/prodashboard')">
+                <div class="yellow_box">
+                    <h2 style="font-size: 15px;margin-bottom: 8px !important;"><span class="glyphicon glyphicon-warning-sign" style="color:black; margin-left: 11px"></span>Complete Ringhop Pro Setup</h2>
+                </div>
+            </a>
+        </div>
+        <div ng-show="updatePayment">
+            <a href="javascript:;" ng-click="forward('left','#/home/updatepayment')">
+                <div class="red_box">
+                    <h2 style="font-size: 15px;margin-bottom: 8px !important;"><span class="glyphicon glyphicon-warning-sign" style="color:black;"></span>Update billing information</h2>
+                </div>
+            </a>
+        </div>
+        <!-- Nanda -->
+        <!-- <ul ng-show="yellowUpgrade">
+            <li>
+                <button type="button" class="btn btn-default fullwidth btn-success upgrade" ng-click="proUpgrade()">
+                    upgrade to unlimited txt and voice
+                </button>
+            </li>
+        </ul> -->
+        <ul class="newList" style="font-size: 14px;font-weight: 700;">
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="chatLink()"><span class="glyphicon glyphicon-comment"></span>TXT messages</button>
+            </li>
+            <li ng-show="shoutsection">
+                <button type="button" class="btn btn-default fullwidth" ng-click="shoutLink()"><span class="glyphicon glyphicon-new-window"></span>Shouts</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="callLink()"><span class="glyphicon glyphicon-earphone"></span>Recent calls</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="contactsLink()"><span class="glyphicon glyphicon-star"></span>Contacts</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="myLibrary()"><span class="glyphicon glyphicon-th"></span>My library</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="buyCredits()"><span class="glyphicon glyphicon-usd"></span>Buy credits</button><!-- Nanda -->
+            </li>
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="goTovideoCallAccept()"><span class="glyphicon glyphicon-envelope"></span>Test video page</button>
+            </li> -->
+            <!-- <li>
+                <button type="button" class="btn btn-default fullwidth"><span class="glyphicon glyphicon-camera"></span>Photos</button>
+            </li -->
+        </ul>
+        <!-- Nanda -->
+        <!-- <ul style="font-size: 14px;font-weight: bold;">
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="statusAndAvaillink()"><span class="glyphicon glyphicon-plus"></span>Status & availability</button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="settingLink()"><span class="glyphicon glyphicon-cog"></span>Settings</button>
+            </li>
+        </ul>
+ -->
+         <!--ul>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="settingLink()"><span class="glyphicon glyphicon-cog"></span>Settings</button>
+            </li>
+        </ul-->
+        <!--ul>
+            <li>
+                <button type="button" class="btn btn-default fullwidth" ng-click="searchLink()">
+                    <span class="glyphicon glyphicon-search"></span>Search users
+                </button>
+            </li>
+        </ul-->
+
+        <ul ng-show="upgradeDisplay">
+            <li>
+                <button type="button" class="btn btn-default fullwidth btn-success upgrade" ng-click="buyCredits()">
+                    upgrade to unlimited txt and voice
+                   <span class="arrowright"></span
+                </button>
+                <!--span class="arrowright"></span-->
+            </li>
+        </ul>
+    </section>
+    <section class="earn" ng-show="learnMore">
+        <p id="pro_status">{{pro_status}} <a href="javascript:;" ng-click="proStatusLink()">{{learn_more}}</a></p>
+        <p class="text-center" style="margin-top: 50px">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+    <!--div class="phpdebugbar-openhandler-overlay" style=""></div>
+    <div class="ui-loader ui-corner-all ui-body-b ui-loader-verbose">
+        <span class="ui-icon-loading">
+        </span>
+        <h1>Loading</h1>
+    </div-->
+</div>

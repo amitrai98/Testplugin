@@ -1,0 +1,63 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Add Credits</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <!--div class="form-group middle" id="before_img_select">          
+            <div class="col-sm-12 profile clearfix">
+                <span class="errorStatus">{{errorMsg}}</span>
+                <div class="control-label">
+                    <label class="creditLabel"> Choose credits to add:</label>
+                </div>
+                <div class="radio1 check1 clearfix">
+                    <input type="radio" ng-model="Credit" name="credits" id="01" value="20"/>
+                    <label for="01"><span></span></label>
+                    <a href="javascript:;"> 20 Credits  - <span style="font-weight:normal">(cost $20)</span></a>
+                </div>
+
+                <div class="radio1 check2 clearfix">
+                    <input type="radio" ng-model="Credit" name="credits" id="02" value="40">
+                    <label for="02"><span></span></label>
+                    <a href="javascript:;"> 40 Credits  - <span style="font-weight:normal">(cost $40)</span></a>
+                </div>
+
+                <div class="radio1 check2 clearfix">
+                    <input type="radio" ng-model="Credit" name="credits" id="03" value="60">
+                    <label for="06"><span></span></label>
+                    <a href="javascript:;"> 60 Credits  - <span style="font-weight:normal">(cost $60)</span></a>
+                </div>
+                <div class="form-group creditSubmit">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="creditSubmit()">Update account</button>
+                    </div>
+                </div>
+                <p class="terms"> You must first click the button to update. </p>
+            </div>
+        </div-->
+        <span class="errorStatus">{{errorMsg}}</span>
+        <span class="succesStatus customSuccessStatus">{{creditInfo}}</span>
+        <div class="form-group" style="padding-bottom:0px; margin-bottom:0px;">
+            <div class=" col-sm-12" ng-repeat="credit in InApp_credits">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="creditSubmit(credit.credit,credit.price)">Buy {{credit.credit}} credits for ${{credit.credit}}</button>
+            </div>
+
+            <!-- <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="creditSubmit(20)">Click to add 20 credits</button>
+            </div>
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="creditSubmit(40)">Click to add 40 credits</button>
+            </div>
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="creditSubmit(60)">Click to add 60 credits</button>
+            </div> -->
+        </div>
+        <p>
+            You must first click the button to update.
+        </p>
+    </div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

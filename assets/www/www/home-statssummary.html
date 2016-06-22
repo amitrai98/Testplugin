@@ -1,0 +1,37 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back"  ng-click="backButton()"></a>
+    <h1 class="ui-title"> Period summary</h1>
+   <!--  <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+
+<div class="earning earningNEW paddingBilling">
+    <ul>
+    	<li>
+            <a href="javascript:;" class="callHistory tableHead">
+            <!-- <a href="javascript:;" class="callHistory" ng-show="!noMessageDiv"> -->
+                <span class="left" style="width:45%;"><b>Date</b></span>
+                <span class="right" style="width:25%;"><b>Amount</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+        
+        <li ng-repeat="historyKey in statssummhistory">
+            <a href="javascript:;" class="callHistory">
+                <span class="datenew left" style="width:45%;margin-top:-5px;">
+                    <span style="width:100%;">{{historyKey.sdate | date:'MMM dd, yyyy'}}</span>
+                </span>
+                <span class="valuechange valuechangeNEW right" style="width:25%;">
+                    <p>${{historyKey.total.toFixed(2)}}</p>
+                </span>
+                <span class="clr"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="no_msg" ng-show="noMessageDiv">
+        {{noMessageDiv}}
+    </div>
+</div>
+
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

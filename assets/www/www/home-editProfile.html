@@ -1,0 +1,106 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back"  ng-click="backButton()"></a>
+    <h1 class="ui-title">Edit profile</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div>
+    <section class="midArea" ng-show="image_available">
+        <div class="form-horizontal ui-content">
+            <div class="form-group">
+                <div id="after_img_select">
+                    <div class=" col-sm-12" >
+                        <button type="button" class="btn btn-default fullwidth" ng-click="saveProfilePic()">
+                            <span class="glyphicon glyphicon-ok-circle"></span>
+                            Save profile photo
+                        </button>
+                    </div>
+                    <div class=" col-sm-12">
+                        <button type="button" class="btn btn-default fullwidth" ng-click="cancelUpload()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class=" col-sm-12">
+                    <img src="" id="profile_image" class="captureCenter" style="display:none;" width="285" height="auto"/>
+                    <input type="hidden" value="" name="imageString" id="imageString"/>
+                </div>
+                <span id="upload_status" class="errorStatus"></span>
+            </div>
+        </div>
+    </section>
+    <section class="editProfile" ng-show="!image_available">
+        <div class="form-horizontal ui-content">
+            <div class="form-group middle" id="before_img_select" style="margin-top: -11px;">
+                <div class="col-sm-3 control-label">
+                    <label>Change profile photo</label>
+                </div>
+                <div class=" col-sm-12" style="margin-top: -5px;">
+                    <button type="button" class="tack btn btn-default fullwidth" ng-click="uploadPhoto()">
+                        Take or upload photo
+                    </button>
+                </div>
+                <div class=" col-sm-12" id="deleteBtn" style="margin-top: -7px">
+                    <button type="button" class="delete btn btn-default fullwidth" ng-click="deletePhoto()">
+                        Delete profile photo
+                    </button>
+                </div>
+                <div class="col-sm-3 control-label" style="margin-top: -18px;">
+                    <label>Edit Profile</label>
+                </div>
+
+                <div class="col-sm-12" style="margin-top: -8px;">
+                    <button type="button" class="social btn btn-default fullwidth" ng-click="socialLinks()">
+                        Social links
+                    </button>
+                </div>
+                <div class="col-sm-12" style="margin-top: -7px;">
+                    <button type="button" class="set btn btn-default fullwidth" ng-click="setLocation()">
+                        Set location
+                    </button>
+                </div>
+                <div class="col-sm-12" style="margin-top: -7px;">
+                    <button type="button" class="about btn btn-default fullwidth" ng-click="aboutMe()">
+                        About me
+                    </button>
+                </div>
+
+                <div class="col-sm-12 profile clearfix" >
+                    <div class="control-label" ng-if="isPro == true" style="margin-top: -18px;">
+                        <label> Profile settings</label>
+                    </div>
+                    <div class="check1 clearfix" ng-if="isPro == true" style="margin-top: -7px;">
+                        <input type="checkbox" ng-model="isDisplayPro" ng-change="displayPro()" id="01" />
+                        <label for="01"><span></span></label>
+                        <a href="javascript:;">Display my pro Number</a>
+                    </div>
+
+                    <!-- <div class="check2 clearfix" style="margin-top: 10px;border-radius: 4px;">
+                        <input type="checkbox" ng-model="isDisplayCall" id="02" class="" ng-change="displayCallStatus()">
+                        <label for="02"><span></span></label>
+                        <a href="javascript:;">Display my call status</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="overEdit" ng-show="takePhotoOpt" ng-click="cancelPhoto()"></div>
+        <div class="editProfileImg" ng-show="takePhotoOpt">
+            <ul>
+                <li ng-click="takePhoto()"><a href="javascript:;">Take Photo</a></li>
+                <li ng-click="photoLibrary()"><a href="javascript:;">Choose Existing</a></li>
+            </ul>
+            <ul class="cancel">
+                <li ng-click="cancelPhoto()"><a href="javascript:;">Cancel</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+    <!--div class="phpdebugbar-openhandler-overlay" style=""></div>
+    <div class="ui-loader ui-corner-all ui-body-b ui-loader-verbose">
+        <span class="ui-icon-loading">
+        </span>
+        <h1>Loading</h1>
+    </div-->
+</div>

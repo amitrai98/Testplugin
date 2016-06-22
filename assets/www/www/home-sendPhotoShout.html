@@ -1,0 +1,110 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Send photo</h1>
+    <!--a class="interface header-panel ui-link" href="javascript:;"></a-->
+</header>
+<div style="overflow-x: hidden;">
+    <section class="midArea">
+    <!-- -----**** Send photo Shout ***----- -->
+    <div class="loaderId" style="display:block;" id="checkLoader">
+        <img src="img/loader.gif">
+    </div>
+    <div id="uploadChat_id" class="col-sm-3 control-label sendshoutlabel" style="margin-bottom: 2px;font-size: 15px;">
+            Send a photo shout
+        </div>
+        <div class="col-sm-12" ng-show="div_visible">
+            <button type="button" class="btn btn-default fullwidth sendshoutbtn" ng-click="uploadshoutPhoto()"> 
+                <a href="javascript:;" class="okshout">
+                <!-- <span class="glyphicon glyphicon-ok okshoutspan"></span> -->
+                </a>   
+                <span class="" style="margin-right: -15px;"></span>
+                Take or upload photo
+            </button>
+            <p class="terms" id="phide">
+                You can send a photo message to this user by clicking the button above. Includes advanced option to set an image expiration time, etc.
+            </p>
+        </div>
+<div ng-show="div_visible1">
+        <div class="col-sm-12">
+            <div id="media_error" class="errorStatus"></div>
+            <button type="button" class="btn btn-default fullwidth sendshoutbtn1" ng-click="uploadshoutPhoto()" id="checkbtn"> 
+                <a href="javascript:;" class="okshout">
+                 <span class="glyphicon glyphicon-ok okshoutspan"></span> 
+                </a>   
+                <span class="" style="margin-right: -15px;"></span>
+                Take or upload photo
+            </button>
+        </div>
+    <div class="form-group shoutfeature" style="margin-bottom: 7px;" id="checkform">
+        <div class="col-sm-9">
+            <a href="javascript:;" class="okshout">
+                <span class="glyphicon glyphicon-ok okshoutspan1"></span>
+                <span class="numberedprice"></span>
+            </a>
+            <input id="media_price" name="media_price" ng-model="media_price"  placeholder="Enter media price" autocomplete="off" autocorrect="off" type="number" allow-decimal-numbers>
+                <!-- <select id="media_price" name="media_price" ng-model="media_price" class=" form-control country-code currPeriod card-expiry-month sendshoutselect" ng-options="shoutMediaObj.id  as shoutMediaObj.value for  shoutMediaObj in shoutMediaList" ng-init = "media_price = shoutMediaList[0].id"> -->
+                    <!-- <option value="" selected="selected">Set a price</option>
+                    <option value="1">Free</option>
+                    <option value="2">$1.00</option>
+                    <option value="3">$2.00</option>
+                    <option value="4">$3.00</option>
+                    <option value="5">$4.00</option>
+                    <option value="6">$5.00</option>
+                    <option value="7">$6.00</option>
+                    <option value="8">$7.00</option>
+                    <option value="9">$8.00</option>
+                    <option value="10">$9.00</option>
+                    <option value="11">$10.00</option> -->
+                <!-- </select> -->
+        </div>
+    </div>
+    <div class="form-group shoutfeature" id="checkform1">
+        <div class="col-sm-9">
+        <a href="javascript:;" class="okshout">
+                <span class="glyphicon glyphicon-ok okshoutspan2"></span>
+                <span class="numberedprice1"></span>
+        </a>
+        
+                <select id="sent_to_list" name="sent_to_list" ng-model="sent_to_list" class=" form-control country-code currPeriod card-expiry-month sendshoutselect" ng-options="shoutRecepientObj.id  as shoutRecepientObj.value for  shoutRecepientObj in shoutRecepientsList" ng-init = "sent_to_list = shoutRecepientsList[0].id">
+                    <!-- <option value="" selected="selected">Choose recipients</option>
+                    <option value="1">All my users</option>
+                    <option value="2">Leads only</option>
+                    <option value="3">Billable users</option> -->
+                </select>
+            <div id="expiremonth_error" class="errorStatus"></div>
+        </div>
+    </div>
+    <div class="col-sm-9 shout-text" id="checkform2">
+            <input type="text" class="form-control shoutTextedit" id="tagline" placeholder="optional comments" ng-model="tagline" name="tagline" value="" autocorrect="off" autocapitalize="off" style="color: rgb(169, 169,169) !important;padding-top: 0px;display: block;">
+            <span id="lastname_error" class="errorStatus"></span>
+    </div>
+    <div class="form-group" id="checkform3">
+          <div class=" col-sm-12">
+            <button type="button" class="btn btn-default fullwidth fullwidth_blue" style="width: 102%;margin-left: -2px;margin-top: 15px;" ng-click="sendShout()">Send shout</button>
+          </div>
+    </div>
+    <div>
+        <img src="" class="captureShout" id="shout_image" style="display:none; max-width:100%;" width="285" height="250"/>
+        <input type="hidden" value="" name="imageString" id="imageString"/>
+    </div>
+</div>
+    <!-- <div class="overEdit" ng-show="takePhotoOpt" ng-click="cancelPhoto()"></div> -->
+        <div class="editProfileImg" ng-show="takePhotoOpt">
+            <ul>
+                <li ng-click="takePhoto()"><a href="javascript:;">Take Photo</a></li>
+                <li ng-click="photoLibrary()"><a href="javascript:;">Photo library</a></li>
+            </ul>
+            <ul class="cancel">
+                <li ng-click="cancelPhoto()"><a href="javascript:;">Cancel</a></li>
+            </ul>
+        </div>
+</section>
+    <!-- <section class="earn" style="margin-top: 40px;" ng-show="!div_visible">
+            <p class="sendShoutNotify">You can send a paid "shout" to some or all of your ringhop followers at once by clicking the button above. Then you will be prompted to set a price and a description of your image. Finally, you will be asked to select who will be notified of your shout. Only those users who have been notified will be allowed to purchase and unlock the photo. Note: the image will</p>
+    </section> -->
+
+<!-- -----****End Send photo Shout ***----- -->
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>

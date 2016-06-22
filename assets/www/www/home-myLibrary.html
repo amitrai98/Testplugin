@@ -1,0 +1,93 @@
+<header id="app_header" ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">My library</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+
+<div class="popup1 msgImgPopup" ng-show="imgPopup" data-role="popup" id="imgPopup">
+    <span ng-click="closeImage();">
+        <img src="img/cross.png" class="crossPopup" />
+    </span>
+    <img ng-src="{{bigImg}}" class="msgImage" id="bigMsgImg"/>
+
+</div>
+<section class="midArea">
+    <div class="no_msg" ng-show="noMessageDiv">
+        No images available.
+    </div>
+    <div class="form-horizontal ui-content">
+    	<div class="myLibrary">
+    		<ul id="imgUL" class="list-inline">
+    			<li ng-class="{noMargin: !(($index+1)%2) && !$first }" ng-repeat="lib in libraries" ng-style="{'position':'relative','background-image':'url({{lib.image_big}})'}" ng-show = "showNewimg" class="imgNew" ng-click="openImage( lib.image_big )">
+    				<!-- <img src="img/dummy_media.jpg" ng-style='{"height":"170px"}'ng-if="lib.media_status == 'new' && lib.charge_amount != '0.00'">
+                    <div ng-click="buyNow(lib.id, lib.originator_id, lib.sender_name)" ng-if="lib.media_status == 'new' && lib.charge_amount != '0.00'" class="buy-now">Buy now</div> -->
+					<p style="visibility:hidden;">${{lib.charge_amount}}</p>
+    			</li>
+    		</ul>
+    	</div>
+    </div>
+</section>
+<section class="midArea paginate" ng-show="paginateSection">
+    <div class="form-horizontal ui-content">
+        <div class="form-group">
+            <div class="col-xs-6 prev-arrow">
+                <button class="btn btn-default fullwidth fullwidth_blue prev" id="prevBtn" ng-disabled='prevDisabled' ng-click="prevBtn()" ng-model="prevDisabled">
+                    <span id="arrow"></span>
+                    Prev
+                </button>
+            </div>
+            <div class=" col-xs-6 next-arrow">
+                <button class="btn btn-default fullwidth fullwidth_blue next" id="nextBtn" ng-disabled='nextDisabled' ng-click="nextBtn()" ng-model="nextDisabled">
+                    <span></span>
+                    Next
+                </button>
+            </div>
+        </div>
+        <span class="errorStatus"></span>
+    </div>
+</section>
+<div class="slider-popup-frame" ng-show="popupShow">
+    <!--span class="glyphicon glyphicon-remove-sign icon-hide"></span-->
+
+    <div class="img_block">
+        <ul rn-carousel rn-carousel-index="carouselIndex2" class="carousel1" id="slider_ul"  ng-style="{'height':devheight}">
+            <li ng-repeat="slide in slides2 track by slide.id" ng-class="'id-' + slide.id">
+                <div class="top_bar">
+                    <div class="cross_popup" ng-click="closePopup()">
+                        <div class="icon_block">
+                            <img src="img/x.png">
+                        </div>
+                    </div>
+                    <!-- <div class="cross_play" ng-click="playSlider()">
+                        <div class="icon_block">
+                            <img src="img/play.png">
+                        </div>
+                    </div> -->
+                    <div class="cross_next" ng-click="prevSlide()">
+                        <div class="icon_block">
+                            <img src="img/left_arrow.png">
+                        </div>
+                    </div>
+                    <div class="cross_prev" ng-click="nextSlide()">
+                        <div class="icon_block">
+                            <img src="img/right_arrow.png">
+                        </div>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+                <!-- <div ng-style="{'background-image': 'url(' + slide.img + ')'}"  class="bgimage"> -->
+                <div class="bgimage" id="imgDiv_{{slide.id}}">
+                    <img src="{{slide.img}}" id="img_{{slide.id}}" ng-style="{'width':slide.imgWdt,'height':slide.imgHgt}">
+                </div>
+                <div class="slider-bottom" id="slider_bottom_name" ng-click="profileLink(slide.sender_id,slide.sender_name)">
+                    {{slide.sender_name}}
+                </div>
+            </li>
+        </ul>
+        <!-- <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage" ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}"> -->
+    </div>
+
+</div>
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

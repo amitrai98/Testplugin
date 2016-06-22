@@ -1,0 +1,24 @@
+<header ng-controller="menuController">
+    <a class="interface header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">{{diplayUsername}}</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div id="wrapper">
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <!-- <div class="creditInfo">
+            <span class="succesStatus">{{creditInfo}}</span>
+        </div> -->
+        <div class="addcreditsdiv">
+            <p class="creditspara"> This pro requires users to have a minimum balance of ${{showReqBal}} credits to start a video call</p>
+            <div class=" col-sm-12">
+                <button type="button" class="fullwidth_green1" ng-click="addCreditsforvideo()">ADD CREDITS</button>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

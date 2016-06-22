@@ -1,0 +1,29 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Location</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <span id="locationStatusCheck" class="errorStatus"></span>
+        <div class="form-group">
+            <label for="userLocation" class="col-sm-3 control-label">
+                Location
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="userLocation" placeholder="enter your location" ng-model="location" name="location" autocorrect="off" autocapitalize="off">
+                <span id="locationError" class="errorStatus"></span>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="updateLocation()">Update</button>
+            </div>
+        </div>
+        <p class="terms"> You must first click the Update button to apply changes. </p>
+    </div>
+</section>
+<section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>

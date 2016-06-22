@@ -1,0 +1,216 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">My earnings</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div class="earning stats">
+	<!-- <div class="earningActive statsSelect">
+        <p class="revDiv">Your share is {{stats.rev_share}}% </p>
+    </div> -->
+	<div class="country countrySelect statsRev" id="selectSection">
+        <select name="period_select" id="period_select" ng-model="period_select" class="selectpicker form-control extra1" ng-options="period.id as period.value for period in currPeriodSelect" ng-change="currPeriodChange()" ng-init = "period_select = currPeriodSelect[0].id">
+        </select>
+    </div>
+	<div class="strip">
+    </div>
+    <ul>
+    	<li ui-sref="home.statssummary">
+    		<a href="javascript:;" class="earningActive">
+    			<span class="period left">Total for period:</span>
+    			<span class="date right">Total for today: </span>
+    			<span class="datenewblue left"><i id="selected_date_period">{{initial}} - {{final1}}</i></span>
+    			<span class="blank right"><i>{{date | date:'MMM dd, yyyy'}}</i></span>
+    			<span class="price left">${{TotalperiodChrg}}
+                </span>
+    			<span class="price right"><b>${{stats.total_today_charge.toFixed(2)}}</b></span>
+    			<span class="clr"></span>
+    		</a>
+    	</li>
+    	<li ui-sref="home.statscalls({calltype: 0})">
+    		<a href="javascript:;" class="arrowEarning">
+    			<span class="period left unselect">Direct phone calls</span>
+    			<span class="date right"></span>
+
+    			<span class="datenew left" ng-if="stats.calls_currentperiod.call_count != '0'">
+                    ${{currCallCharge}} ( {{stats.calls_currentperiod.call_count}} calls / {{callTime}} mins )
+                </span>
+                <span class="datenew left" ng-if="stats.calls_currentperiod.call_count == '0'">
+                    ${{currCallCharge}} ( no calls )
+                </span>
+
+    			<span class="datenew blank right" ng-if="stats.calls_today.call_count != '0'">
+                    {{stats.calls_today.call_count}} calls / {{stats.calls_today.call_secs}} mins
+                </span>
+                <span class="datenew blank right" ng-if="stats.calls_today.call_count == '0'">
+                    no calls
+                </span>
+
+    			<span class="price left"></span>
+    			<span class="valuechange valuechangeGray right"><b>${{todayCallCharge}}</b></span>
+    			<span class="clr"></span>
+    		</a>
+    	</li>
+    	<li ui-sref="home.statsmessages">
+    		<a href="javascript:;" class="arrowEarning">
+    			<span class="period left unselect">Messages</span>
+    			<span class="date right"></span>
+
+    			<span class="datenew left" ng-if="isPro == true && (stats.msg_currentperiod1.msg_count != '0' || stats.msg_currentperiod.msg_count != '0')">
+                    ${{currMsgChrg}} ( {{stats.msg_currentperiod.msg_count}} received,{{stats.msg_currentperiod1.msg_count}} sent)
+                </span>
+                <span class="datenew left" ng-if="isPro == false && (stats.msg_currentperiod1.msg_count != '0'|| stats.msg_currentperiod.msg_count != '0')">
+                    ${{currMsgChrg}} ( {{stats.msg_currentperiod.msg_count}} msgs sent )
+                </span>
+                <span class="datenew left" ng-if="stats.msg_currentperiod.msg_count == '0' && stats.msg_currentperiod1.msg_count == '0'">
+                    ${{currPerMsgChrg}} ( no msgs )
+                </span>
+
+    			<span class="datenew blank right" ng-if="stats.msg_today.msg_count != '0'">{{stats.msg_today.msg_count}} msgs</span>
+                <span class="datenew blank right" ng-if="stats.msg_today.msg_count == '0'">no msgs</span>
+
+    			<span class="price left"></span>
+    			<span class="valuechange valuechangeGray right"><b>${{msgtodayChrg}}</b></span>
+    			<span class="clr"></span>
+    		</a>
+    	</li>
+    	<li ui-sref="home.statsphotos">
+    		<a href="javascript:;" class="arrowEarning">
+    			<span class="period left unselect">Photo sales</span>
+    			<span class="date right"></span>
+
+    			<span class="datenew left" ng-if="stats.photo_currentperiod.photo_count != '0'">
+                    ${{photoCurrChrg}} ( {{stats.photo_currentperiod.photo_count}} photos )
+                </span>
+                <span class="datenew left" ng-if="stats.photo_currentperiod.photo_count == '0'">
+                    ${{photoCurrChrg}} ( no photos )
+                </span>
+
+    			<span class="datenew blank right" ng-if="stats.photo_today.photo_count != '0'">
+                    {{stats.photo_today.photo_count}} photos
+                </span>
+                <span class="datenew blank right" ng-if="stats.photo_today.photo_count == '0'">
+                    no photos
+                </span>
+
+    			<span class="price left"></span>
+    			<span class="valuechange valuechangeGray right"><b>${{phototodayChrg}}</b></span>
+    			<span class="clr"></span>
+    		</a>
+    	</li>
+    	<li ui-sref="home.statscalls({calltype: 2})">
+            <a href="javascript:;" class="arrowEarning">
+                <span class="period left unselect">Referred in calls</span>
+                <span class="date right"></span>
+
+                <span class="datenew left" ng-if="stats.calls_currentperiod_ref_in.call_count != '0'">
+                    ${{callcurr_ref_in}} ( {{stats.calls_currentperiod_ref_in.call_count}} calls / {{callTime_ref_in}} mins )
+                </span>
+                <span class="datenew left" ng-if="stats.calls_currentperiod_ref_in.call_count == '0'">
+                    ${{callcurr_ref_in}} ( no calls )
+                </span>
+
+                <span class="datenew blank right" ng-if="stats.calls_today_ref_in.call_count != '0'">
+                    {{stats.calls_today_ref_in.call_count}} calls / {{stats.calls_today_ref_in.call_secs}} mins
+                </span>
+                <span class="datenew blank right" ng-if="stats.calls_today_ref_in.call_count == '0'">
+                    no calls
+                </span>
+
+                <span class="price left"></span>
+                <span class="valuechange valuechangeGray right"><b>${{calltoday_ref_in}}</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+        <li ui-sref="home.statscalls({calltype: 1})">
+            <a href="javascript:;" class="arrowEarning">
+                <span class="period left unselect">Referred out calls</span>
+                <span class="date right"></span>
+
+                <span class="datenew left" ng-if="stats.calls_currentperiod_ref_out.call_count != '0'">
+                    ${{callcurr_ref_out}} ( {{stats.calls_currentperiod_ref_out.call_count}} calls / {{callTime_ref_out}} mins )
+                </span>
+                <span class="datenew left" ng-if="stats.calls_currentperiod_ref_out.call_count == '0'">
+                    ${{callcurr_ref_out}} ( no calls )
+                </span>
+
+                <span class="datenew blank right" ng-if="stats.calls_today_ref_out.call_count != '0'">
+                    {{stats.calls_today_ref_out.call_count}} calls / {{stats.calls_today_ref_out.call_secs}} mins
+                </span>
+                <span class="datenew blank right" ng-if="stats.calls_today_ref_out.call_count == '0'">
+                    no calls
+                </span>
+
+                <span class="price left"></span>
+                <span class="valuechange valuechangeGray right"><b>${{calltoday_ref_out}}</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+        <li ui-sref="home.TipHistory">
+            <a href="javascript:;" class="arrowEarning">
+                <span class="period left unselect">Tips Received</span>
+                <span class="date right"></span>
+
+                <span class="datenew left" ng-if="stats.tip_currentperiod.tip_count != '0'">
+                    ${{currPerTipChrg}} ( {{stats.tip_currentperiod.tip_count}} received)
+                </span>
+                
+                <span class="datenew left" ng-if="stats.tip_currentperiod.tip_count == '0'">
+                    ${{currPerTipChrg}} ( no tip received )
+                </span>
+
+                <span class="datenew blank right" ng-if="stats.tip_today.shout_count != '0'">{{stats.tip_today.shout_count}} tip</span>
+                <span class="datenew blank right" ng-if="stats.tip_today.shout_count == '0'">no tip received</span>
+
+                <span class="price left"></span>
+                <span class="valuechange valuechangeGray right"><b>${{tiptodayChrg}}</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+        <li ui-sref="home.shoutsHistory">
+            <a href="javascript:;" class="arrowEarning">
+                <span class="period left unselect">Shouts</span>
+                <span class="date right"></span>
+
+                <span class="datenew left" ng-if="stats.shouts_currentperiod.shout_count != '0'">
+                    ${{shouts_Charge}} ( {{stats.shouts_currentperiod.shout_count}} purchased)
+                </span>
+                
+                <span class="datenew left" ng-if="stats.shouts_currentperiod.shout_count == '0'">
+                    ${{shouts_Charge}} ( no shouts )
+                </span>
+
+                <span class="datenew blank right" ng-if="stats.photo_today.photo_count != '0'">{{stats.photo_today.photo_count}} shout</span>
+                <span class="datenew blank right" ng-if="stats.photo_today.photo_count == '0'">no shouts</span>
+
+                <span class="price left"></span>
+                <span class="valuechange valuechangeGray right"><b>${{shouttodayChrg}}</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+        <li ui-sref="home.statscalls({calltype: 4})">
+            <a href="javascript:;" class="arrowEarning">
+                <span class="period left unselect">Video calls</span>
+                <span class="date right"></span>
+
+                <span class="datenew left" ng-if="stats.vcalls_currentperiod.call_count != '0'">
+                    ${{call_charge}} ( {{stats.vcalls_currentperiod.call_count}} calls / {{stats.vcalls_currentperiod.call_secs}} mins)
+                </span>
+                
+                <span class="datenew left" ng-if="stats.vcalls_currentperiod.call_count == '0'">
+                    ${{call_charge}} ( no calls )
+                </span>
+
+                <span class="datenew blank right" ng-if="stats.vcalls_today.call_count != '0'">{{stats.vcalls_today.call_count}} calls</span>
+                <span class="datenew blank right" ng-if="stats.vcalls_today.call_count == '0'">no calls</span>
+
+                <span class="price left"></span>
+                <span class="valuechange valuechangeGray right"><b>${{videocall_today_chrg}}</b></span>
+                <span class="clr"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<section class="earn">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section>      

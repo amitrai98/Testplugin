@@ -1,0 +1,24 @@
+<header ng-controller="menuController">
+    <!-- <a class="interfac header-back" ng-click="backButton()"></a> -->
+    <h1 class="ui-title">{{showNamedata}}</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div id="wrapper">
+<section class="midArea">
+    <div class="popupContact popupBlock" ng-show="networkPopup" data-role="popup" style="width: 260px;">
+        <span ng-click="closeNetworkPopup()">
+          <img src="img/cross.png" class="crossPopup" />
+        </span>
+        <div role="main" class="ui-content" id="deletecontent">
+          <p style="color:black;">There is a network Connection Problem. Please click OK to go back.</p>
+        </div>
+        <div class="center borderTopSolid" id="okdiv" style="margin-top: -10px;">
+          <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" style="font-size: 17px;color:#428bca !important;margin-top: 10px;"ng-click="goBackAgain()">OK</a>
+        </div>
+</div>
+</section>
+</div>
+
+<!-- <section class="earn" ng-style="{'position':'absolute','bottom':'0','width':'100%','text-align':'center'}">
+    <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+</section> -->

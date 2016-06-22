@@ -1,0 +1,152 @@
+<header ng-controller="menuController">
+    <a class="interfac header-back" ng-click="backButton()"></a>
+    <h1 class="ui-title">Who's available</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+</header>
+<div ng-controller="searchController">
+    <section class="inner_action">
+        <div class="result_line">
+        <p style="float:left;margin-left:10px;">1-30 of 46 </p>
+            <p>sorted by most recent</p>
+        </div>
+        <form class="search" action="/mobile/users/search">
+            <label for="search-basic">
+                Search User:
+            </label>
+            <div class="form-input">
+                <input id="search-basic"type="text" data-type="search" value="" name="search-basic">
+            </div>
+        </form>
+        <div style="clear:both;"></div>
+    </section>
+<!--first-->
+    <div class="col-md-12" class="resultBlock">
+        <a ui-sref="home.profileoptions" class="profileblock">
+            <div class="row">
+
+                <div class="col-xs-12 col-md-12">
+                    <p class="edit edit-text">edit Photo</p>
+                    <div class="thumb img-thumb">
+                        <img src="img/profile.jpg" class="img-responsive" alt="..." id="profile_pic">
+                    </div>
+                    <div class="caption">
+                        <h2 id="username">Susie</h2>
+
+                        <p class="location_status" id="user_loc"></p>
+                        <p class="textaddresss" id="user_gender"></p>
+                        <p class="textaddresss" id="user_location"></p>
+                        <p class="btmtitle" id="usersStatus">  offline</p>
+                    </div>
+                     <span id="right-arrow"></span>
+                    <div class="clr"></div>
+                </div>
+        </div>
+        </a>
+        <div class="clr"></div>
+    </div>
+     <div class="clr"></div>
+<!--second-->
+    <div class="col-md-12" class="resultBlock">
+        <a ui-sref="home.profileoptions" class="profileblock">
+            <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <p class="edit edit-text">edit Photo</p>
+                <div class="thumb img-thumb">
+                    <img src="img/profile.jpg" class="img-responsive" alt="..." id="profile_pic">
+                </div>
+                <div class="caption">
+                    <h2 id="username">Susie</h2>
+                    <p class="location_status" id="user_loc"></p>
+                    <p class="textaddresss" id="user_gender"></p>
+                    <p class="textaddresss" id="user_location"></p>
+                    <p class="btmtitle" id="usersStatus">  offline</p>
+                </div>
+                 <span id="right-arrow"></span>
+                <div class="clr"></div>
+            </div>
+        </div>
+        </a>
+        <div class="clr"></div>
+    </div>
+     <div class="clr"></div>
+<!--third-->
+    <div class="col-md-12" class="resultBlock">
+        <a ui-sref="home.profileoptions" class="profileblock">
+            <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <p class="edit edit-text">edit Photo</p>
+                <div class="thumb img-thumb">
+                    <img src="img/profile.jpg" class="img-responsive" alt="..." id="profile_pic">
+                </div>
+                <div class="caption">
+                    <h2 id="username">Susie</h2>
+                    <p class="location_status" id="user_loc"></p>
+                    <p class="textaddresss" id="user_gender"></p>
+                    <p class="textaddresss" id="user_location"></p>
+                    <p class="btmtitle" id="usersStatus">  offline</p>
+                </div>
+                 <span id="right-arrow"></span>
+                <div class="clr"></div>
+            </div>
+        </div>
+        </a>
+        <div class="clr"></div>
+    </div>
+     <div class="clr"></div>
+<!--forth-->
+    <div class="col-md-12" class="resultBlock">
+        <a ui-sref="home.profileoptions" class="profileblock">
+            <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <p class="edit edit-text">edit Photo</p>
+                <div class="thumb img-thumb">
+                    <img src="img/profile.jpg" class="img-responsive" alt="..." id="profile_pic">
+                </div>
+                <div class="caption">
+                    <h2 id="username">Susie</h2>
+                    <p class="location_status" id="user_loc"></p>
+                    <p class="textaddresss" id="user_gender"></p>
+                    <p class="textaddresss" id="user_location"></p>
+                    <p class="btmtitle" id="usersStatus">  offline</p>
+                </div>
+                 <span id="right-arrow"></span>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+     <div class="clr"></div>
+</div>
+
+<section class="midArea">
+    <div class="form-horizontal ui-content">
+        <div class="form-group">
+            <div class="col-xs-6 prev-arrow">
+                <button class="btn btn-default fullwidth fullwidth_blue prev" id="prevBtn" ng-disabled='prevDisabled' ng-click="prevBtn()" ng-model="prevDisabled">
+                    <span></span>
+                    Prev
+                </button>
+                <span></span>
+            </div>
+            <div class=" col-xs-6 next-arrow">
+                <button class="btn btn-default fullwidth fullwidth_blue next" id="nextBtn" ng-disabled='nextDisabled' ng-click="nextBtn()" ng-model="nextDisabled">
+                    <span></span>
+                    Next
+                </button>
+            </div>
+        </div>
+        <span class="errorStatus"></span>
+    </div>
+</section> 
+
+<section>
+    <div class="popupSearch"> 
+        <ul>
+            <li class="opt"><a href="#">Options</a></li>
+            <li><a href="#" class="ui-btn ui-icon-arrow-r ui-btn-icon-right"><span id="arrow-icon"></span>Sort</a></li>
+            <li><a href="#" class="ui-btn ui-icon-arrow-r ui-btn-icon-right"><span id="arrow-icon"></span>Map view</a></li>
+            <li><a href="#" class="ui-btn ui-icon-arrow-r ui-btn-icon-right"><span id="arrow-icon"></span>Create email alert</a></li>
+            <li><a href="#" class="ui-btn ui-icon-arrow-r ui-btn-icon-right"><span id="arrow-icon"></span>Save this search</a></li>
+        </ul>
+    </div> 
+</section>  

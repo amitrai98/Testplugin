@@ -71,7 +71,10 @@ public class CallbackContext {
      * @param message           The message to add to the success result.
      */
     public void success(JSONObject message) {
-        sendPluginResult(new PluginResult(PluginResult.Status.OK, message));
+
+    PluginResult plugInResult = new PluginResult(PluginResult.Status.OK, message);
+        plugInResult.setKeepCallback(true);
+        sendPluginResult(plugInResult);
     }
 
     /**
@@ -132,7 +135,10 @@ public class CallbackContext {
      * @param message           The message to add to the error result.
      */
     public void successMessage(JSONObject message) {
-        sendPluginResult(new PluginResult(PluginResult.Status.OK, message));
+        PluginResult plugInResult = new PluginResult(PluginResult.Status.OK, message);
+        plugInResult.setKeepCallback(true);
+        sendPluginResult(plugInResult);
+//        sendPluginResult(new PluginResult(PluginResult.Status.OK, message));
     }
 
 

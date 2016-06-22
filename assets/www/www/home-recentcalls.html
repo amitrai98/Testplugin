@@ -1,0 +1,128 @@
+<header ng-controller="menuController">
+    <a class="interface header-back" ng-click="backFromRecentcalls()"></a>
+    <h1 class="ui-title">Recent calls</h1>
+    <!-- <a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a> -->
+    <!--a class="interface header-panel ui-link" href="javascript:;" ng-click="leftMenu()"></a>-->
+</header>
+<div>    
+
+    <div class="col-sm-6 button_select" ng-show="messageOptions">
+        <button type="button" class="btn btn-default buttonMessage fullwidth_bluemsg" id="billable_user" ng-click="billableUser()">Billable Users</button>
+        <button type="button" class="btn btn-default buttonMessage fullwidth_white" id="trial_user" ng-click="showLeads($event)">Leads</button>
+    </div>
+    <div class="popupContact popupBlock" ng-show="networkPopup" data-role="popup" style="width: 260px;">
+        <span ng-click="closeNetworkPopup()">
+          <img src="img/cross.png" class="crossPopup" />
+        </span>
+        <div role="main" class="ui-content" id="deletecontent">
+          <p style="color:black;">There is a network Connection Problem. Please click OK to go back.</p>
+        </div>
+        <div class="center borderTopSolid" id="okdiv" style="margin-top: -10px;">
+          <a href="javascript:;" class="ui-btn ui-btn-inline" id="deleteanchor" data-rel="back" data-transition="flow" style="font-size: 17px;color:#428bca !important;margin-top: 10px;"ng-click="goBackAgain()">OK</a>
+        </div>
+    </div>
+    <section class="text-msg" ng-class="{textMsgPro:isPro}" id="recentcalls" ng-show="showmeleads">
+        <div class="first-text" ng-repeat="item in recentCalls">
+            <a href="javascript:;" ng-click="forward('left','#/home/callerhistory{{item.originator}}')">
+                <div class="row" ng-style="{'width':'100%'}" ng-class="{basedColor: item.calltype == 'missed'}">
+                    <h5 ng-style="{'padding-left':'20px','margin-bottom':'5px'}">{{item.displayname}} ({{item.callcount}})</h5>
+                    <div ng-style="{'padding-left':'20px'}" class="text-left col-xs-8">
+                        <p>
+                            {{item.calltype}}
+                        </p>
+                    </div>
+
+                    <div class="text-right col-xs-4 text-right-msg">
+                        <p>{{item.maxtime}}</p>
+                        <span></span>
+                    </div>
+                </div> 
+            </a>
+            <div ng-show="proInfo == 2">
+                <div class="videoIconOnCall" ng-class="{basedColor: item.calltype == 'missed'}" ng-click="missedVideoCalling(item.originator,item.displayname)" ng-show="item.callkind == 'video' ">
+                    <span style="font-size:17px;padding-left: 10px;">
+                        <i class="fa fa-video-camera"></i>
+                    </span>
+                </div>
+                <div class="videoIconOnCall" ng-class="{basedColor: item.calltype == 'missed'}" ng-show="item.callkind == 'audio' ">
+                    <span style="font-size:17px;padding-left: 10px;">
+                        <i class="fa fa-volume-control-phone"></i>
+                    </span>
+                </div>
+            </div>
+            <div ng-show="proInfo != 2 && item.calltype == 'missed'">
+                <div class="videoIconOnCall" ng-class="{basedColor: item.calltype == 'missed'}" ng-click="missedVideoCalling(item.originator,item.displayname)" style=" margin-right: 6px !important;">
+                    <span style="font-size:17px;padding-left: 10px;">
+                        <i class="fa fa-video-camera"></i>
+                    </span>
+                </div>
+                    <span class="audioCallIcon">
+                         <i class="fa fa-volume-control-phone"></i>
+                    </span>
+            </div>
+            <div ng-show="proInfo != 2 && item.calltype != 'missed'">
+                <div class="videoIconOnCall" ng-class="{basedColor: item.calltype == 'missed'}" ng-click="missedVideoCalling(item.originator,item.displayname)" ng-show="item.callkind == 'video' ">
+                    <span style="font-size:17px;padding-left: 10px;">
+                        <i class="fa fa-video-camera"></i>
+                    </span>
+                </div>
+                <div class="videoIconOnCall" ng-class="{basedColor: item.calltype == 'missed'}" ng-show="item.callkind == 'audio' ">
+                    <span style="font-size:17px;padding-left: 10px;">
+                        <i class="fa fa-volume-control-phone"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="no_msg" ng-show="noCallDiv">
+            {{noCall}} 
+        </div>
+        <!--div class="first-text">
+            <div class="row">
+                <div class="text-left col-xs-8">
+                    <h5>Susie Suxalot</h5>
+                    <p>hey</p>
+                </div>
+                <div class="text-right col-xs-4">
+                    <p>2014-06-19 12:25:22</p>
+                </div>
+            </div> 
+        </div-->
+
+    </section>
+    <section class = "leadsSection" ng-show="showLeadstext">
+        <div id = "leadsText">
+            <div style="margin-left: -10px;">What are leads?</div>
+            <div style="width: 330px;padding-right: 35px;margin-left: -10px;word-spacing: -0.5px;">
+               Leads are user that have attempted to contact you , but have not yet added a credit card to their account. Each lead has been notified they must first add a payment method before communicating with you. You can view the leads attempted message by clicking below and optionally choose to send a free message.
+            </div>
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12" style="margin-top: 15px;width: 101%;margin-left: -1px;">
+                <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="leadsUser()">Show me my leads</button>
+            </div>
+        </div>
+    </section>
+    <section class="midArea paginate" ng-show="paginateSection">
+        <div class="form-horizontal ui-content">
+            <div class="form-group">
+                <div class=" col-xs-6 prev-arrow">
+                    <button class="btn btn-default fullwidth fullwidth_blue prev" id="prevBtnCall" ng-disabled='prevDisabled' ng-click="prevBtn()" ng-model="prevDisabled">
+                        <span id="arrow"></span>
+                        Prev
+                    </button>
+                </div>
+                <div class=" col-xs-6 next-arrow">
+                    <button class="btn btn-default fullwidth fullwidth_blue next" id="nextBtnCall" ng-disabled='nextDisabled' ng-click="nextBtn()" ng-model="nextDisabled">
+                        Next
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            <span class="errorStatus"></span>
+           
+        </div>
+    </section>
+    <section class="earn">
+        <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+    </section>
+</div>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout.LayoutParams;
+import android.widget.RelativeLayout;
 
 import com.listeners.SessionListeners;
 import com.opentok.android.BaseVideoRenderer;
@@ -56,17 +56,12 @@ public class MySession extends Session {
     // public methods
     public void setPlayersViewContainer(ViewGroup container) {
         this.mSubscribersViewContainer = container;
-//        this.mSubscribersViewContainer.setAdapter(mPagerAdapter);
-//        mPagerAdapter.notifyDataSetChanged();
     }
 
     public void setPreviewView(ViewGroup preview) {
         this.mPreview = preview;
     }
 
-//    public void connect() {
-//        this.connect(Constants.TOKEN);
-//    }
 
     // callbacks
     @Override
@@ -74,17 +69,23 @@ public class MySession extends Session {
 
         CALL_CONNECTED = true;
 
-        mSessionListener.onCallConnected();
 
-        mPublisher = new Publisher(mContext, "MyPublisher");
+//        if(!mCaller){
+        mSessionListener.onCallConnected();
+//            mPublisher = new Publisher(mContext, "MyPublisher");
+        mPublisher = new Publisher(mContext,
+                "MyPublisher",
+                Publisher.CameraCaptureResolution.LOW,
+                Publisher.CameraCaptureFrameRate.FPS_15);
         publish(mPublisher);
 
         // Add video preview
-        LayoutParams lp = new LayoutParams(
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         mPublisherView = mPublisher.getView();
         mPreview.addView(mPublisher.getView(), lp);
         mPublisher.setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
+//        }
 
 //        presentText("Welcome to OpenTok Chat.");
     }
@@ -93,7 +94,6 @@ public class MySession extends Session {
     protected void onStreamReceived(Stream stream) {
 
         CALL_STARTED = true;
-
         mSessionListener.onCallStarted();
 
         MySubscriber p = new MySubscriber(mContext, stream);
@@ -109,16 +109,11 @@ public class MySession extends Session {
 
         mSubscriberView = p.getView();
         mSubscribersViewContainer.addView(mSubscriberView);
-//        p.setSubscribeToVideo(true);
-        mSessionListener.onCallConnected();
+
     }
 
     @Override
     protected void onStreamDropped(Stream stream) {
-//        MySubscriber p = mSubscriberStream.get(stream);
-//        if (mSubscriber != null) {
-////            mSubscribers.remove(p);
-
 
         if(CALL_STARTED)
             mSessionListener.onCallEnded();
@@ -143,19 +138,6 @@ public class MySession extends Session {
         } else {
             mPublisherView.setVisibility(View.INVISIBLE);
         }
-
-//        if (!mPublisher.getPublishVideo()) {
-//            mPreview.removeView(mPublisherView);
-//        } else {
-//            LayoutParams lp = new LayoutParams(
-//                    LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-//            if(mPreview.getChildCount()==0) {
-//             Log.e("ChildCount","Child is 0");
-//                mPublisher.setPublishVideo(true);
-//                mPreview.addView(mPublisher.getView(), lp);
-//                mPublisher.setPublishVideo(true);
-//            }
-//        }
     }
 
     public void muteMic() {
@@ -169,13 +151,6 @@ public class MySession extends Session {
         super.onStreamHasVideoChanged(stream, hasVideo);
 
         if (mPublisher.getStream().toString().equalsIgnoreCase(stream.toString())) {
-//                if(hasVideo==0)
-//                {
-//                    mPreview.removeView(mPublisherView);
-//                }
-//            else{
-//                    mPreview.addView(mPublisherView);
-//                }
         } else {
             if (hasVideo == 0) {
                 mSubscriber.setSubscribeToVideo(false);
@@ -191,19 +166,13 @@ public class MySession extends Session {
                 mSubscribersViewContainer.addView(mSubscriberView);
             }
         }
-if(mSubscriber!=null) {
-    if (mSubscriber.getSubscribeToVideo() || mPublisher.getPublishVideo()) {
-        mSessionListener.onVideoViewChange(true);
-//            if(mSubscribersViewContainer.getChildAt(mSubscribersViewContainer.getChildCount()-1).equals(mNullView))
-//            {
-//                mSubscribersViewContainer.removeView(mNullView);
-//            }
-    } else {
-//            Log.e("ViewAdd","View Added");
-//            mSubscribersViewContainer.addView(mNullView);
-        mSessionListener.onVideoViewChange(false);
-    }
-}
+        if(mSubscriber!=null) {
+            if (mSubscriber.getSubscribeToVideo() || mPublisher.getPublishVideo()) {
+                mSessionListener.onVideoViewChange(true);
+            } else {
+                mSessionListener.onVideoViewChange(false);
+            }
+        }
     }
 
     /**
@@ -228,7 +197,11 @@ if(mSubscriber!=null) {
      * swipe Cameras
      */
     public void swipeCamera() {
-        mPublisher.swapCamera();
+        try{
+            mPublisher.swapCamera();
+        }catch (Exception e ){
+            e.printStackTrace();
+        }
     }
 
     public Subscriber getSubscriber()
@@ -293,6 +266,5 @@ if(mSubscriber!=null) {
     public void onResume() {
         super.onResume();
     }
-
 
 }

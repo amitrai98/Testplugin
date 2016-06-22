@@ -1,0 +1,111 @@
+<div>
+    <div class="wrapper">
+        <header>
+            <a class="interfac header-back" onclick="back('right', '#/home')"></a><!--  Nanda 10 june -->
+            <h1 class="ui-title">Confirm phone</h1>
+            <a class="interface header-panel ui-link" href="javascript:;" ng-click="navAction()"></a>
+        </header>
+        <section class="midArea">
+            <div class="form-horizontal ui-content">
+                <span id="server_status" class="errorStatus">{{serverMessage}}</span>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Link your mobile phone
+                    </label>
+                    <div class="col-sm-9">
+                        <p>
+                            We first need to link your phone to your new account. Don't worry, your number is kept secret and never revealed to other users.
+                        </p>
+                    </div>
+
+                    <label for="country-code" class="col-sm-3 control-label">
+                        My mobile country code
+                    </label>
+                    <div class="col-sm-9 country">
+                        <!--span class="country1"></span-->
+                        <select name="country_code" id="country_code" ng-model="countryCode" ng-options="country as country.value for country in countries" ng-change="othercountrychng(countryCode.id)" class="selectpicker form-control country-code startreg">
+                        </select>
+
+                    </div>
+                    <label for="other_country_code" class="col-sm-3 control-label" ng-show="showotherCountry">
+                        Other country code
+                    </label>
+                    <div class="col-sm-9 country" ng-show="showotherCountry">
+                        <!--span class="country1"></span-->
+                        <select name="other_country_code" id="other_country_code" ng-model="otherCountryCode" ng-options="otherCountryObj.id  as otherCountryObj.value for  otherCountryObj in otherCountryList" ng-init = "otherCountryCode = otherCountryList[0].id" class="selectpicker form-control country-code startreg">
+                        </select>
+
+                    </div>
+                </div>
+                <span id="stateSelect_status" class="errorStatus"></span>
+                <div class="form-group">
+                    <label for="reg_phone_number" class="col-sm-3 control-label" id="reg_phone_label">
+                        Enter your mobile number
+                    </label>
+                    <div class="col-sm-9" ng-show="showFirstNo">
+                        <input type="text" class="form-control1" id="reg_phone_number" name="phonenumber" placeholder="Enter your mobile number" ng-model="phoneNumber">
+                    </div>
+                    <div class="col-sm-9" ng-show="!showFirstNo">
+                        <input type="text" class="form-control2" id="reg_phone_number" name="phonenumber" placeholder="Enter your mobile number" ng-model="phoneNumber">
+                    </div>
+                    <div style="margin-top: 6px;">
+                    <span id="phone_status" class="errorStatus" style="margin-left: 14px;"></span>
+                    </div>
+                </div>
+
+                <p>
+                    A confirmation PIN will be sent to the mobile number you entered above.
+                </p>
+                <div class="form-group">
+                    <div class=" col-sm-12">
+                        <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="registerAction()">
+                            Send confirmation PIN
+                        </button>
+                    </div>
+                </div>
+                <!-- nanda -->
+                <div>
+                    <p style="text-align:center;">Already have an account? <a href="javascript:;" ng-click="loginUser()">Log in</a></p>
+                </div>
+
+            </div>
+        </section>
+        <section class="earn">
+            <p class="text-center">ringhop © {{date | date:'yyyy'}}</p>
+        </section>
+    </div>
+    <div id="sidebar-wrapper" class="side-menu" >
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a ui-sref="home">
+                    Home
+                </a>
+            </li>
+            <li class="ring">
+                <a href="javascript:;">RINGHOP</a>
+            </li>
+            <li>
+                <a ui-sref="home.howitworks">How it works</a>
+            </li>
+            <li>
+                <a ui-sref="home.become_Pro">Become a Pro</a>
+            </li>
+            <!-- <li>
+                <a ui-sref="home.faqs">Overview</a>
+            </li> -->
+            <li class="ring">
+                <a href="javascript:;">ACCOUNT</a>
+            </li>
+            <li>
+                <a ui-sref="home.contactus">Support</a>
+            </li>
+            <li>
+                <a ui-sref="home.register">Create account</a>
+            </li>
+            <li>
+                <a ui-sref="home.login">Sign in</a>
+            </li>
+        </ul>
+    </div>
+</div>
