@@ -11,6 +11,5 @@ public class Constants {
     public static final String RECEIVER_INITIALIZED = "ReceiverInitializationCompleted";
     public static final String CONNECTION_CREATED = "connectionCreated";
     public static final String CALL_ENDED_BY_RECEIVER = "callEndedByUser";
-    public static final String CALL_ENDED_BY_CALLER = "CallEnded";
 
 }

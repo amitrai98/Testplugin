@@ -30,6 +30,7 @@ public class CallbackContext {
     private CordovaWebView webView;
     protected boolean finished;
     private int changingThreads;
+    JSONObject prev_message = null;
 
     public CallbackContext(String callbackId, CordovaWebView webView) {
         this.callbackId = callbackId;
@@ -135,6 +136,9 @@ public class CallbackContext {
      * @param message           The message to add to the error result.
      */
     public void successMessage(JSONObject message) {
+        if(prev_message != null && prev_message.toString().equalsIgnoreCase(message.toString()))
+            return;
+        prev_message = message;
         PluginResult plugInResult = new PluginResult(PluginResult.Status.OK, message);
         plugInResult.setKeepCallback(true);
         sendPluginResult(plugInResult);

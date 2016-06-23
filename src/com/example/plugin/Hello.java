@@ -67,6 +67,8 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     public static final String SUCCESS = "success";
     public static final String ERROR = "error";
 
+    private String MISSED_CALL = null;
+
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -126,6 +128,8 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
                 return true;
             } else if (ACTION_END_CALL.equalsIgnoreCase(action)) {
                 disconnectCall();
+            }else if(action == null || action == "null"){
+
             }
             callbackContext.error("Invalid action");
             return false;
@@ -165,12 +169,12 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
             if(mCallPerMinute != null && mCallPerMinute.equals("0")){
                 JSONObject json = getJson(Constants.RECEIVER_INITIALIZED, SUCCESS);
                 mCallBackContext.successMessage(json);
-                mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, true);
+                mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, false);
             }
             else{
                 JSONObject json = getJson(Constants.INITIALIZATION_COMPLETE, SUCCESS);
                 mCallBackContext.successMessage(json);
-                mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, false);
+                mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, true);
             }
 
             addView();
@@ -340,7 +344,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     @Override
     public void onCallDisconnected() {
-        JSONObject json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
+        JSONObject json = getJson(Constants.CALL_END, SUCCESS);
         mCallBackContext.successMessage(json);
     }
 
@@ -422,13 +426,18 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     private void disconnectCall() {
         ((MainActivity) cordova.getActivity()).setActivityListener(null);
         if(MySession.CALL_CONNECTED){
-            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
-            mCallBackContext.successMessage(json);
+//            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
+//            mCallBackContext.successMessage(json);
         }
         if (mSession.getSubscriber() != null) {
-            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
+//            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
+//            mCallBackContext.successMessage(json);
+        } else if(mCallPerMinute != null && mCallPerMinute.equals("0")){
+            JSONObject json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
             mCallBackContext.successMessage(json);
-        } else {
+        }
+
+        else {
             JSONObject json = getJson(Constants.DISCONNECT_SUCCESS, SUCCESS);
             mCallBackContext.successMessage(json);
         }

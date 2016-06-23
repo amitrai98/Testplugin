@@ -51,6 +51,7 @@ public class MySession extends Session {
         this.mContext = context;
         this.mSessionListener = listeners;
         this.mCaller = mCaller;
+        CALL_STARTED = false;
     }
 
     // public methods
@@ -71,7 +72,7 @@ public class MySession extends Session {
 
 
 //        if(!mCaller){
-        mSessionListener.onCallConnected();
+
 //            mPublisher = new Publisher(mContext, "MyPublisher");
         mPublisher = new Publisher(mContext,
                 "MyPublisher",
@@ -94,6 +95,9 @@ public class MySession extends Session {
     protected void onStreamReceived(Stream stream) {
 
         CALL_STARTED = true;
+
+        mSessionListener.onCallConnected();
+
         mSessionListener.onCallStarted();
 
         MySubscriber p = new MySubscriber(mContext, stream);
@@ -218,7 +222,8 @@ public class MySession extends Session {
     @Override
     protected void onConnectionCreated(Connection connection) {
         super.onConnectionCreated(connection);
-        mSessionListener.onReciverInitialized();
+        if(!mCaller)
+            mSessionListener.onReciverInitialized();
     }
 
     @Override
@@ -234,11 +239,10 @@ public class MySession extends Session {
     @Override
     protected void onDisconnected() {
         super.onDisconnected();
-        if(CALL_STARTED)
-            mSessionListener.onCallDisconnected();
-        else
+        if(!CALL_STARTED)
             mSessionListener.onCallEndBeforeConnect();
-
+        else
+            mSessionListener.onCallDisconnected();
     }
 
     @Override
