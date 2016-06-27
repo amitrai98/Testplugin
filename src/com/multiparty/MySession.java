@@ -69,11 +69,6 @@ public class MySession extends Session {
     protected void onConnected() {
 
         CALL_CONNECTED = true;
-
-
-//        if(!mCaller){
-
-//            mPublisher = new Publisher(mContext, "MyPublisher");
         mPublisher = new Publisher(mContext,
                 "MyPublisher",
                 Publisher.CameraCaptureResolution.LOW,

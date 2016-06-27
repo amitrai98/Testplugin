@@ -44,6 +44,7 @@ import org.json.JSONObject;
 public class Hello extends CordovaPlugin implements SessionListeners, ActivityListener, View.OnClickListener {
     public static final String ACTION_INIT_CALL = "initializeVideoCalling";
     public static final String ACTION_END_CALL = "endCalling";
+    private static final String TAG = CordovaPlugin.class.getSimpleName();
     private static MySession mSession;
     private ImageView mVideoCallBtn, mMicBtn, mDisconnectBtn, mSwipeBtn;
     private View mCallView, mNoneView;
@@ -68,6 +69,8 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     public static final String ERROR = "error";
 
     private String MISSED_CALL = null;
+    private boolean prev_command =false;
+    private boolean call_initialized = false;
 
 
     @Override
@@ -85,10 +88,13 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
 
         try {
+            prev_command =false;
+
             if (ACTION_INIT_CALL.equals(action)) {
                 mCallBackContext = callbackContext;
                 ((MainActivity) cordova.getActivity()).setActivityListener(this);
                 mJsonData = args;
+
                 int permissionCheck = ContextCompat.checkSelfPermission(cordova.getActivity(),
                         Manifest.permission.CAMERA);
 
@@ -126,11 +132,18 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
                     }
                 }
                 return true;
-            } else if (ACTION_END_CALL.equalsIgnoreCase(action)) {
-                disconnectCall();
+            } else if(action!=null && action.equalsIgnoreCase("missedCall")){
+                endCall(action);
+            }else if (ACTION_END_CALL.equalsIgnoreCase(action)) {
+                if(args != null){
+                    String object = args.getString(0);
+                    endCall(object);
+                }else
+                    disconnectCall();
             }else if(action == null || action == "null"){
-
-            }
+                endCall(null);
+            }else
+                endCall(action);
             callbackContext.error("Invalid action");
             return false;
         } catch (Exception e) {
@@ -147,6 +160,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 //            JSONObject object = args.getJSONObject(0);
 
         try {
+            call_initialized = true;
             String apiKey = args.get(0).toString();//.getString("apiKey");
             String sessonId = args.get(1).toString();//object.getString("sessonId");
             String sessonToken = args.get(2).toString();//object.getString("sessonToken");
@@ -346,6 +360,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     public void onCallDisconnected() {
         JSONObject json = getJson(Constants.CALL_END, SUCCESS);
         mCallBackContext.successMessage(json);
+        disconnectCall();
     }
 
     @Override
@@ -424,26 +439,38 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     }
 
     private void disconnectCall() {
-        ((MainActivity) cordova.getActivity()).setActivityListener(null);
-        if(MySession.CALL_CONNECTED){
+        try {
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mViewGroup.removeView(mCallView);
+                }
+            });
+
+            ((MainActivity) cordova.getActivity()).setActivityListener(null);
+            if(MySession.CALL_CONNECTED){
 //            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
 //            mCallBackContext.successMessage(json);
-        }
-        if (mSession.getSubscriber() != null) {
+            }
+            if (mSession.getSubscriber() != null) {
 //            JSONObject json = getJson(Constants.CALL_END, SUCCESS);
 //            mCallBackContext.successMessage(json);
-        } else if(mCallPerMinute != null && mCallPerMinute.equals("0")){
-            JSONObject json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
-            mCallBackContext.successMessage(json);
+            } else if(mCallPerMinute != null && mCallPerMinute.equals("0")){
+                JSONObject json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
+                mCallBackContext.successMessage(json);
+            }
+
+            else {
+                JSONObject json = getJson(Constants.DISCONNECT_SUCCESS, SUCCESS);
+                mCallBackContext.successMessage(json);
+            }
+
+            mSession.disconnect();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        else {
-            JSONObject json = getJson(Constants.DISCONNECT_SUCCESS, SUCCESS);
-            mCallBackContext.successMessage(json);
-        }
 
-        mSession.disconnect();
-        mViewGroup.removeView(mCallView);
     }
 
     @Override
@@ -678,6 +705,12 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
         JSONObject jsonObj =null;
         try {
+            if(message == null){
+               return new JSONObject("{\"data\":\"null\",\"status\":\"success\"}");
+            }else if(message.equals(" ")){
+                return new JSONObject("{\"data\":"+message+",\"status\":\"success\"}");
+            }
+
             if(message_type.equals(SUCCESS)){
                 if(message.equals("Initialization completed !!"))
                     jsonObj = new JSONObject("{\"data\":\"Initialization completed !!\",\"status\":\"success\"}");
@@ -713,6 +746,48 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             p.setMargins(l, t, r, b);
             v.requestLayout();
+        }
+    }
+
+    /**
+     * this method returns the call back as it is and removes the calling view.
+     */
+    private void endCall(String message){
+        try {
+
+            if(!call_initialized)
+                return;
+
+            if(prev_command)
+                return;
+
+            prev_command = true;
+
+
+            if (mSession != null)
+                mSession.disconnect();
+
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mViewGroup.removeView(mCallView);
+                }
+            });
+
+
+            if(message != null && message.equalsIgnoreCase("missedCall")){
+                JSONObject json = getJson(message, SUCCESS);
+                mCallBackContext.successMessage(json);
+            }else if(message == null || message .equalsIgnoreCase("null")){
+                JSONObject json = getJson(null, SUCCESS);
+                mCallBackContext.successMessage(json);
+            }else {
+                JSONObject json = getJson(message, SUCCESS);
+                mCallBackContext.successMessage(json);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

@@ -58,6 +58,7 @@ function onDeviceReady() {
         ios: {
             alert: "true",
             badge: "true",
+            clearBadge: "true",
             sound: "true"
         },
         windows: {}
@@ -75,9 +76,9 @@ function onDeviceReady() {
         // console.log(data.additionalData.session_id);
         //alert("hello");
          var device_type_data;
-         console.log(deviceType);
+         console.log(data.additionalData.additionalData);
          if (deviceType == 'Android') {
-            device_type_data = JSON.parse(data.message);
+            device_type_data = data.additionalData.additionalData;
             console.log(device_type_data);
          }else{
             device_type_data = data.additionalData;
@@ -464,7 +465,7 @@ mainApp.controller( "loginformController", function( $scope, $http, $location, $
         // console.log("deactivated");
         $scope.deactivate_msg = true;
     }
-    if( ($rootScope.previousState == 'home.settings' && $rootScope.currentState == 'home.login') || ($rootScope.previousState == 'home' && $rootScope.currentState == 'home.login')) {
+    if( ($rootScope.previousState == 'home.settings' && $rootScope.currentState == 'home.login') || ($rootScope.previousState == 'home' && $rootScope.currentState == 'home.login') || ($rootScope.previousState == 'affter_login' && $rootScope.currentState == 'home.login')) {
         $scope.logout_msg = true;
         var rememberme_local = localStorage.getItem( "rememberme_data" );
         if( rememberme_local ) {
