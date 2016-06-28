@@ -2520,7 +2520,7 @@ mainApp.controller("sendPhotoShoutController", function( $scope, $http, $timeout
     };
     function submitShout(){
         // console.log("imageString");
-        // var user_detail = localStorage.getItem("userDetail");
+        var user_detail = localStorage.getItem("userDetail");
         var userData = JSON.parse(user_detail).data;
          //var submitShoutData = "image="+imageString+"&media_price="+$scope.media_price+"&sent_to_list="+$scope.sent_to_list+"&tagline="+$scope.tagline;
         if($scope.tagline === undefined){

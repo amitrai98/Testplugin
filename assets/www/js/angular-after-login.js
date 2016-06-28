@@ -6,6 +6,8 @@ mainApp.controller( "dashBoardController", function( $scope, constantData, $http
     $rootScope.currentState;
     $scope.date = new Date();
     //alert(device_token);
+    $scope.messageCount = 0; // Nanda 21june16
+    $scope.callCount = 0;
     $rootScope.$on('$stateChangeSuccess', function( ev, to, toParams, from, fromParams ) {
         $rootScope.previousState = from.name;
         $rootScope.currentState = to.name;
@@ -15,6 +17,8 @@ mainApp.controller( "dashBoardController", function( $scope, constantData, $http
     var userData = JSON.parse( user_detail ).data;
     // console.log(userData);
     var profileImg = localStorage.getItem( "profileData" );
+
+    // test
     $scope.profileImg =profileImg;
     // console.log($scope.profileImg);
     // alert($scope.profileImg);
@@ -41,8 +45,10 @@ mainApp.controller( "dashBoardController", function( $scope, constantData, $http
     //console.log(JSON.stringify(getDashboardData));
     var responsePromise = $http.post(BASE_URL+"dashboard",JSON.stringify(getDashboardData));
     responsePromise.success( function( data, status, headers, config ) {
-        // console.log( "success:"+JSON.stringify( data ) );
-
+        console.log( "success:"+JSON.stringify( data ) );
+        $scope.messageCount = data.data.unread_msg_count;  
+        $scope.msgStatus = data.data.msg_read_status; 
+        $scope.callCount = data.data.recent_call_count;
         var getDeviceData = {};
         getDeviceData['os'] = deviceOS;
         getDeviceData['uuid'] = uuid;
@@ -134,9 +140,11 @@ mainApp.controller( "dashBoardController", function( $scope, constantData, $http
 
             //pro user detail in dashboard
             if( proDetail == 2 ) {
-                var pro_number = "("+user_number.substr(1, 3)+") "+user_number.substr(4, 3)+"-"+user_number.substr(7, 4);
+                if (user_number) {
+                    var pro_number = "("+user_number.substr(1, 3)+") "+user_number.substr(4, 3)+"-"+user_number.substr(7, 4);
+                    $('#pro_number').html(pro_number);
+                }
                 $scope.proSection = true;
-                $('#pro_number').html(pro_number);
                 $scope.submitReviewPro = false;
             }
             //console.log("====users status for upgrade option=====");
@@ -680,8 +688,8 @@ mainApp.controller( "editProfileController", function( $scope, $http, $timeout, 
         $scope.image_available = true;
         // Take picture using device camera and retrieve image as base64-encoded string
         navigator.camera.getPicture( onPhotoDataSuccess, onFail, { quality: 75, targetWidth:1000,
-        	targetHeight: 1000, correctOrientation: true,
-        	destinationType: Camera.DestinationType.DATA_URL
+            targetHeight: 1000, correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL
         } );
     };
 
@@ -690,8 +698,8 @@ mainApp.controller( "editProfileController", function( $scope, $http, $timeout, 
         $scope.takePhotoOpt = false;
         $scope.image_available = true;
         navigator.camera.getPicture( onPhotoDataSuccess, onFail, { quality: 50, targetWidth:1000,
-        	targetHeight: 1000, destinationType: Camera.DestinationType.DATA_URL,
-         	sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            targetHeight: 1000, destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
         } );
     };
 
@@ -958,7 +966,7 @@ mainApp.controller( "changepwdController", function( $scope, $http, $timeout, $s
             //     }
             // } else {
             //     if( $('#oldpassword').val().length == 0)  {
-            //     	//alert(0);
+            //      //alert(0);
             //         $( '#resetpwdold_error' ).html('This field is required.');
             //     } else {
             //         $( '#resetpwdold_error' ).html('Please enter at least 6 characters.');
@@ -1172,7 +1180,7 @@ mainApp.controller( "changepwdController", function( $scope, $http, $timeout, $s
         if( $('#resetpwdold_error').html() == '' && $('#resetpwd_error').html() == '' && $('#resetpwdcon_error').html() == ''){
             flag = true;
         } else {
-        	flag = false;
+            flag = false;
         }
         if( flag == true ) {
             if( password == confirm_passwd ) {
@@ -1598,7 +1606,7 @@ mainApp.controller( "purchaseController", function( $scope, $http, $state, $stat
         }else{
             // console.log("enter wrong");
             $("#purchase_button").css({"background":"red","border-color":"red","color":"white"});
-            $(".purchaseEarn p").css({"margin-top": "-30px" , "font-size": "11px" , "margin-left": "9px"});
+            $(".purchaseEarn p").css({"margin-top": "-8px" , "font-size": "11px" , "margin-left": "9px"});
         }
         // $scope.photoInfo = data;
     } );
@@ -1856,9 +1864,11 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
     // console.log($stateParams.messageId);
     var user_detail = localStorage.getItem("userDetail");
     var userData = JSON.parse(user_detail).data;
-    //console.log(userData);
+    var dashboard_data = localStorage.getItem( "dashboard_data" );
+    $scope.userstatusData = JSON.parse( dashboard_data ).data.user_status;
     var userId = userData.id;
-    // console.log(userId);
+    //console.log(dashboard_data);
+    //console.log($scope.userstatusData);
     var originator_id = $stateParams.messageId;
     console.log(originator_id);
     $scope.user_id = originator_id;
@@ -1888,6 +1898,9 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
         $scope.replyChats = data.data;
         $scope.username = data.data.originator.displayname;
         $scope.receiverProInfo = data.data.originator_profile.pro;
+        $scope.senderStatus = $scope.userstatusData; 
+        $scope.smsTrials = data.data.originator_profile.do_smstrials;
+        //console.log($scope.senderStatus);
         if($scope.proInfo != $scope.receiverProInfo){
             // if( user_status == 'pending' || $scope.replyChats.originator.status == 'pending' ) {
             //     console.log($scope.proInfo, user_status);
@@ -2215,9 +2228,9 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
     }
 
     if( parseInt( userId ) < parseInt( originator_id ) ) {
-    	channel1 = userId+'X'+originator_id;
+        channel1 = userId+'X'+originator_id;
     } else {
-    	channel1 = originator_id+'X'+userId;
+        channel1 = originator_id+'X'+userId;
     }
     // console.log(channel1);
     $.cloudinary.config({ cloud_name: 'nobetek-llc', api_key: '247749274532722'});
@@ -2379,10 +2392,10 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
 
 
             //             $( '#message_image_'+history[i].media_id ).on( 'click', function(event) {
-				        // 	//alert('click id');
+                        //  //alert('click id');
             //                 //$(".loaderId").show();
-				        //     var bigimageurl = $(this).attr( "data" );
-				        //     $("#bigMsgImg").attr( "src", bigimageurl );
+                        //     var bigimageurl = $(this).attr( "data" );
+                        //     $("#bigMsgImg").attr( "src", bigimageurl );
             //                 //$("#bigMsgImg").one("load", function() {
             //                     //$(".loaderId").hide();
             //                     $(".popup1").removeClass('ng-hide');
@@ -2391,7 +2404,7 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
             //                     //$(this).show();
             //                // });
 
-				        // } );
+                        // } );
             //             //$('#msg_container').scrollTop( $(document).height() );
             //         }
             //         $( '#msg_container' ).scrollTop( $(document).height()+9500 );
@@ -2418,6 +2431,12 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
                 var unlockNameid = 'unlock_img';
                 // console.log('message is:'+message.user_msg + ' message blocker is' + message.blocker +'blocked:'+message.blocked+' originator_u_id:'+message.originator_u_id);
                 var user_session = userId;
+                $.ajax({ 
+                    url:BASE_URL+"readmsgupdate",
+                    data:{'uid': message.originator_u_id},
+                    type:"post",
+                    success: function(){console.log("success")}
+                }); 
                 if ( message.blocked == 'yes' ) {
                     // console.log('user blocked..');
                     if (user_session == message.originator_u_id ) {
@@ -2427,7 +2446,9 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
                             $("#msg_container").append("<div class='me' style='white-space:normal;text-align:center;background:#6189fb;color:white;'> <p>"+'This user no longer wishes to receive your messages :('+"</p> <span>"+ message.date_time +"</span></div>");
                         }
                     }
-                } else if (message.msg_type == 'tip'){
+                } else if ( user_session == message.originator_u_id && message.msg_type ==  'notrial'){                        
+                        $("#msg_container").append('<div class="me" style="white-space:normal;text-align:center;background:#ff9600;color:white;font-weight:bold;">This pro no longer wishes to receive trial messages and you must upgrade to continue chat <p></p><div class="upgradeDiv"><a href="javascript:;" class="upgradeLink" data-ajax="false" style="color: #007aff;text-decoration: underline;font-weight:bold;">Upgrade now</a></div></div>');  /*Nanda 15june*/                  
+                }else if (message.msg_type == 'tip'){
                     // console.log("tip");
                         if (user_session == message.originator_u_id){
                            $( "#msg_container" ).append( '<div class="me" style="white-space:normal;text-align:right;background:#FCF3E3;"> <p>Tip sent @ '+ message.date_time + '</p><p><div class="paidtext" style="background-color:green!important;">$'+ addZeroes(message.msg_rate) + '</div></p> </div>');
@@ -2853,37 +2874,46 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
     // });
     $scope.submitChat = function($event){
         // console.log("enter submit chat");
-    	//alert("submit message");
+        //alert("submit message");
         var inputChat = $scope.chatInput;
         $scope.chatInput = '';
         if( $('#input_chat').val() != '' ) {
             // console.log("input chat");
-            var getChatData = {};
-            getChatData['chat_entry'] = inputChat;
-            getChatData['receiver'] = originator_id;
-            getChatData['deviceAppId'] = device_token;
-            getChatData['deviceType'] = deviceType;
-            getChatData['deviceId'] = uuid;
-            getChatData['responsetype'] = 'json';
-            console.log( JSON.stringify( getChatData ) );
-            var responsePromise = $http.post( BASE_URL+"sendchatmessage",JSON.stringify( getChatData ) );
-            responsePromise.success( function( data, status, headers, config ) {
-                console.log(JSON.stringify(data));
-                //localStorage.setItem("reply_data",JSON.stringify(data));
-                $scope.chatInput = '';
-                //$('#msg_container').scrollTop( $(document).height() );
-            } );
-            responsePromise.error( function ( data, status, headers, config ) {
-                console.log( JSON.stringify( data ) );
-                if(navigator.connection.type == Connection.NONE) {
-                    checkConnection();
-                }
-            } );
+            //console.log("i am here"+$scope.receiverProInfo+""+$scope.senderStatus);
+            if($scope.receiverProInfo != 2 && $scope.senderStatus=='pending'){
+                var trial_sms = $scope.smsTrials;
+                if(trial_sms == 0){
+                  $("#msg_container").append('<div class="me" style="white-space:normal;text-align:center;background:#ff9600;color:white;font-weight:bold;">This pro no longer wishes to receive trial messages and you must upgrade to continue chat <p></p><div class="upgradeDiv"><a href="javascript:;" class="upgradeLink" data-ajax="false" style="color: #007aff;text-decoration: underline;font-weight:bold;">Upgrade now</a></div></div>');  //Nanda 15june               
+                }              
+            }
+            else
+            {
+                var getChatData = {};
+                getChatData['chat_entry'] = inputChat;
+                getChatData['receiver'] = originator_id;
+                getChatData['deviceAppId'] = device_token;
+                getChatData['deviceType'] = deviceType;
+                getChatData['deviceId'] = uuid;
+                getChatData['responsetype'] = 'json';
+                console.log( JSON.stringify( getChatData ) );
+                var responsePromise = $http.post( BASE_URL+"sendchatmessage",JSON.stringify( getChatData ) );
+                responsePromise.success( function( data, status, headers, config ) {
+                    console.log(JSON.stringify(data));
+                    //localStorage.setItem("reply_data",JSON.stringify(data));
+                    $scope.chatInput = '';
+                    //$('#msg_container').scrollTop( $(document).height() );
+                } );
+                responsePromise.error( function ( data, status, headers, config ) {
+                    console.log( JSON.stringify( data ) );
+                    if(navigator.connection.type == Connection.NONE) {
+                        checkConnection();
+                    }
+                } );
+            }            
         }else{
             // console.log("enter else condition");
            $event.preventDefault(); 
-        }
-        
+        }        
     };
 
     $scope.deleteHistory = function() {
@@ -2896,7 +2926,7 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
         // } );
 
         // pubnub.time( function( time ) {
-        // 	//alert(JSON.stringify(time));
+        //  //alert(JSON.stringify(time));
         //     pubnub.state( {
         //         channel : channel1,
         //         state : {
@@ -2969,12 +2999,16 @@ mainApp.controller( "replyController", function( $scope, $http, $state, $statePa
                 
                 var senderstatus = data.senderstatus;
                 var senderbalance = parseFloat(data.senderbalance);
-                var trial_sms = parseInt(data.sendertrial_sms);        
+                var trial_sms = parseInt(data.sendertrial_sms);
+                var do_smstrials = parseInt(data.do_smstrials); //Nanda 15 june        
                 var sms_rate = parseFloat(data.to_sms_rate);
                 //check here if balance is sufficient before sending image                            
                 if(data.senderpro != 2) {
                     if(senderstatus == 'active' && senderbalance < sms_rate){
                         $("#msg_container").append('<div class="me" style="white-space:normal;text-align:center;background:#2cba00;color:white;">You must add additional credits to continue. <p></p> <a href="javascript:;" class="creditLink" style="color: #007DFD;text-decoration: underline;">Add credits now</a></div>');
+                    }
+/*Nanda 15 june*/   else if(senderstatus == 'pending' && do_smstrials == 0){
+                        $("#msg_container").append('<div class="me" style="white-space:normal;text-align:center;background:#ff9600;color:white;font-weight:bold;">This pro no longer wishes to receive trial messages and you must upgrade to continue chat <p></p><div class="upgradeDiv"><a href="javascript:;" class="upgradeLink" data-ajax="false" style="color: #007aff;text-decoration: underline;font-weight:bold;">Upgrade now</a></div></div>'); 
                     }
                     else if(senderstatus == 'pending' && trial_sms <= 0){
                         $("#msg_container").append('<div class="me" style="white-space:normal;text-align:center;background:#2cba00;color:white;">Your free trial has expired and you must upgrade to continue chatting. <p></p><div class="upgradeDiv"><a href="javascript:;" class="upgradeLink" data-ajax="false" style="color: #007DFD;text-decoration: underline;">Upgrade now</a></div></div>');
@@ -3545,7 +3579,7 @@ mainApp.controller( "sendPhotoController", function( $scope, $http, $state, $sta
         $scope.div_visible = false;
         // Take picture using device camera and retrieve image as base64-encoded string
         navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, targetWidth:500,
-        	targetHeight: 500, allowEdit: true, correctOrientation: true,
+            targetHeight: 500, allowEdit: true, correctOrientation: true,
         destinationType: Camera.DestinationType.DATA_URL });
     };
 
@@ -3554,7 +3588,7 @@ mainApp.controller( "sendPhotoController", function( $scope, $http, $state, $sta
         $scope.takePhotoOpt = false;
         $scope.div_visible = false;
         navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, targetWidth:1000,
-        	targetHeight: 1000, destinationType: destinationType.DATA_URL,
+            targetHeight: 1000, destinationType: destinationType.DATA_URL,
         sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
     };
 
@@ -3588,6 +3622,7 @@ mainApp.controller( "sendPhotoController", function( $scope, $http, $state, $sta
         chatImageData['responsetype'] = "json";
         chatImageData['image'] = imageString;
         chatImageData['uid'] = $stateParams.recieverId;
+        chatImageData['tagline'] = $scope.tagline;
         if( proData == 2 ) {
             if( mediaCharge == '' ) {
                 chatImageData['media_price'] = 0;
@@ -5753,7 +5788,7 @@ mainApp.controller("videoCallingController", function( $scope, $http,  $filter, 
         $scope.newCurrDate = $filter('date')(currDate,'yyyy-MM-dd HH:mm:ss');
         // console.log($scope.newCurrDate);
         var flag = 0;
-        var apiKey = '45606972';
+        var apiKey = '45598312';
         if($stateParams.receive_data == ''){
             // console.log($stateParams.receive_data);
             $scope.showEndVideoDiv = false;
@@ -5779,8 +5814,8 @@ mainApp.controller("videoCallingController", function( $scope, $http,  $filter, 
         }
         else{
         flag=0;
-        var sessonId = '2_MX40NTYwNjk3Mn5-MTQ2NTk2ODc4MjUzNX5adm0vb2JzL3lPZDlkWlN5U0t1NXN5NVd-fg';
-        var sessonToken = 'T1==cGFydG5lcl9pZD00NTYwNjk3MiZzaWc9YTFmNDU3ZDE5YzQ5YzEwYmRmZjc2YjM4YTlhNzNiNWIwYjE5NjNlZDpzZXNzaW9uX2lkPTJfTVg0ME5UWXdOamszTW41LU1UUTJOVGsyT0RjNE1qVXpOWDVhZG0wdmIySnpMM2xQWkRsa1dsTjVVMHQxTlhONU5WZC1mZyZjcmVhdGVfdGltZT0xNDY1OTcwNzk1Jm5vbmNlPTAuNTg5Mzk5ODE5MDI5NDk1MSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDY4NTYyNzk0';
+        var sessonId = '1_MX40NTU5ODMxMn5-MTQ2NTQ4MDczMTk3OH5aeG9lb3FjRXQwUUlLOUFiV1ppVmZTK0x-fg';
+        var sessonToken = 'T1==cGFydG5lcl9pZD00NTU5ODMxMiZzaWc9MWU1NzU4YzU0NThiNDUwMjY3M2RjNjI3ZTc2OGE2NWE0OGI0MWVjZDpzZXNzaW9uX2lkPTFfTVg0ME5UVTVPRE14TW41LU1UUTJOVFE0TURjek1UazNPSDVhZUc5bGIzRmpSWFF3VVVsTE9VRmlWMXBwVm1aVEsweC1mZyZjcmVhdGVfdGltZT0xNDY1NDgwNzYyJm5vbmNlPTAuNjQ0NjM0MzMzNjcyMDAyJnJvbGU9cHVibGlzaGVyJmV4cGlyZV90aW1lPTE0NjgwNzI3NjE='; 
         var callPerMinute = JSON.parse($stateParams.receive_data).videoRate;
         var userBalance = JSON.parse($stateParams.receive_data).bal;
         var imageUrl = localStorage.getItem("receiverImage_data");
@@ -5830,7 +5865,6 @@ mainApp.controller("videoCallingController", function( $scope, $http,  $filter, 
             
     function onSuccess(successmsg) {
         console.log(successmsg);
-        console.log(JSON.stringify(successmsg));
         console.log(successmsg.data);
         var token_random = localStorage.getItem("Random_token");
         var receiverCallId = localStorage.getItem("CallId");
@@ -5840,13 +5874,19 @@ mainApp.controller("videoCallingController", function( $scope, $http,  $filter, 
             detailsdataAtEnd['responsetype'] = 'json';
             detailsdataAtEnd['receiver_id'] = $scope.IdReceiver;
             detailsdataAtEnd['originator_id'] = userid;
+            if(flag == 1){
+            detailsdataAtEnd['call_id'] = $scope.ReceiveCallId2;
+            }else{
             detailsdataAtEnd['call_id'] = $scope.ReceiveCallId1;
+            }
             detailsdataAtEnd['event'] = 'ended';
             detailsdataAtEnd['cur_time'] = $scope.newCurrDate;
             console.log(JSON.stringify(detailsdataAtEnd));
             var responsePromise = $http.post( BASE_URL+"setvideocalldetails", JSON.stringify( detailsdataAtEnd ) );
             responsePromise.success( function( data, status, headers, config ) {
                 // console.log(data);
+                // console.log(data.message);
+                console.log(data.data);
                 $scope.totaldata = data.data;
                 $scope.costOfCall = data.data.call_cost;
                 $scope.durationOfCall = data.data.call_duration;
@@ -6106,13 +6146,14 @@ mainApp.controller("videoCallingController", function( $scope, $http,  $filter, 
                 //}
             }else if(successmsg.data == 'CallEnded'){
                 clearTimeout($scope.time_out);
-                console.log("callPerMinute>>>" + callPerMinute);
+                // console.log("callPerMinute>>>" + callPerMinute);
                 // console.log(callPerMinute);
                 $('.ui-loader').show();
                     $timeout(function(){
                       $('.ui-loader').hide();
                     }, 2500);
                 if( callPerMinute !== 0 ){
+                   console.log("callPerMinute>>>" + callPerMinute);
                     Endfunc();
                     // var detailsdataAtEnd = {};
                     // detailsdataAtEnd['responsetype'] = 'json';
@@ -6299,12 +6340,8 @@ mainApp.controller( "videocallMissedController", function( $scope, $http, $timeo
         $scope.idCallback = $stateParams.callBackid;
          $scope.callBackUser = function($event){
             $event.stopPropagation();
-            var reply_detail = localStorage.getItem( "reply_data" );
-            var replyData = JSON.parse( reply_detail ).data;
-            $scope.replyChats1 = replyData;
-            $scope.username1 = replyData.originator.displayname;
-            console.log(replyData);
-            console.log("strt");
+            // console.log($scope.showMissedName);
+            // console.log("strt");
             var videoData = {};
             videoData['responsetype'] = 'json';
             videoData['receiver'] = $scope.idCallback;
@@ -6316,7 +6353,7 @@ mainApp.controller( "videocallMissedController", function( $scope, $http, $timeo
                 $scope.userBalance = data.data.originator_balance;
                 $scope.reqBal = data.data.bal_req;
                 localStorage.setItem("receiverImage_data",data.data.profile_image);
-                var receiveData = JSON.stringify({'username':$scope.username1,'origId':$scope.idCallback,'videoRate':$scope.videoCallRate,'bal':$scope.userBalance,'page_name':''})
+                var receiveData = JSON.stringify({'username':$scope.showMissedName,'origId':$scope.idCallback,'videoRate':$scope.videoCallRate,'bal':$scope.userBalance,'page_name':''})
                 if(data.data.originator_balance >= data.data.bal_req){
                     console.log(receiveData);
                        $state.go('home.videoCalling',{receive_data:receiveData})

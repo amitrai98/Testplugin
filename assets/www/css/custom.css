@@ -2754,34 +2754,49 @@ select#sent_to_list.form-control.country-code.currPeriod.card-expiry-month.sends
 .right-inner-addon {
     position: relative;
     width: 88%;
-    /*margin-left: -5px*/
+    margin-left: -5px
 }
 .right-inner-addon input {
-    padding-left: 15px;   
-    border-radius: 0.4em !important;
+    padding-left: 28px;   
+    border-radius: 0.2em !important;
+    font-size: 15px;
 }
 .searchIconContact span{
     left: 0px;
     float: right;
     color: #9A9A9A;
-    margin-top: -33px;
-    margin-right: -2px;
-    font-size: 24px;
-    opacity: 0.6
+    margin-right: -3px;
+    font-size: 22px;
+    opacity: 0.5;
 }
+.searchIconContact button{
+  width: 43px;
+  height: 38px;
+  border-radius: 0.2em;
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  position: absolute;
+  right: 10px;
+  top: 57px;
+}
+
 .contactAlertError{
   font-size:16px;
   padding-top: 10px;
   font-weight: bold;
 }
-/*.right-inner-addon i {
-    position: absolute;
+.right-inner-addon .innersearch {
     left: 0px;
-    padding: 10px 6px;
-    pointer-events: none;
-    float: left;
+    float: right;
     color: #9A9A9A;
-}*/
+    margin-right: -2px;
+    font-size: 17px;
+    opacity: 0.6;
+    background-color: rgba(0, 0, 0, 0.0);
+    position: absolute;
+    top: -1px;
+    width: 25px;
+}
 .right-inner-addon span{
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
@@ -2820,10 +2835,23 @@ margin: auto;
 left: 5px;
 float: none;
 right: 0;
-background-position: center right;}
+background-position: center right;
+}
 @media screen and (max-width:768px) {
   .allUser{width: 59%;}
   .cameraUpload{width: 20%;}
+  .right-inner-addon{width: 93.8%;}
+  .searchIconContact button{width: 48px;}
+  .searchIconContact span{margin-right: 0px;}
+  select#country_code.selectpicker.form-control.country-code.startreg{
+  background-position: 97%;}
+  select#other_country_code.selectpicker.form-control.country-code.startreg{
+  margin-top:10px;
+  background-position: 97%;}
+  #reg_phone_number{
+    width: 100%;
+    margin-left: 4px;
+  }
 }
 
 @media screen and (max-width:640px) {
@@ -2845,6 +2873,10 @@ background-position: center right;}
 @media screen and (min-device-height:667px){
   #search-basic{width: 92%;}
 }
-
+@media screen and (max-width:375px){
+  .right-inner-addon span{
+    right: 10px;
+  }
+}
 
 /*.btn {font-family: sans-serif;font-weight: 600;letter-spacing: normal;word-spacing: normal;text-shadow:none;}*/

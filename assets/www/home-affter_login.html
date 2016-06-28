@@ -88,13 +88,18 @@
         </ul> -->
         <ul class="newList" style="font-size: 14px;font-weight: 700;">
             <li>
-                <button type="button" class="btn btn-default fullwidth" ng-click="chatLink()"><span class="glyphicon glyphicon-comment"></span>TXT messages</button>
+                <button type="button" class="btn btn-default fullwidth" ng-click="chatLink()"><span class="glyphicon glyphicon-comment"></span>TXT messages
+                <div ng-if="msgStatus=='0' && messageCount != 0" style="font-size:8pt;float:right;color:#fff;background:#f00!important;border-radius:0px;padding:3px 6px;">{{messageCount}}</div>
+                <div ng-if="msgStatus=='1' && messageCount != 0" style="font-size:8pt;float:right;color:#fff;background:#b4b4b4!important;border-radius:0px;padding:3px 6px;">{{messageCount}}</div>                
+                </button>
             </li>
             <li ng-show="shoutsection">
                 <button type="button" class="btn btn-default fullwidth" ng-click="shoutLink()"><span class="glyphicon glyphicon-new-window"></span>Shouts</button>
             </li>
             <li>
-                <button type="button" class="btn btn-default fullwidth" ng-click="callLink()"><span class="glyphicon glyphicon-earphone"></span>Recent calls</button>
+                <button type="button" class="btn btn-default fullwidth" ng-click="callLink()"><span class="glyphicon glyphicon-earphone"></span>Recent calls
+                <div ng-if="callCount!='0'" style="font-size:8pt;float:right;color:#fff;background:#f00!important;border-radius:0px;padding:3px 6px;">{{callCount}}</div> 
+                </button>
             </li>
             <li>
                 <button type="button" class="btn btn-default fullwidth" ng-click="contactsLink()"><span class="glyphicon glyphicon-star"></span>Contacts</button>
