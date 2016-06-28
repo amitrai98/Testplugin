@@ -63,6 +63,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     private ImageView mProfilePicConnecting;
     private ImageView mImageNonView;
     private JSONArray mJsonData;
+    private boolean CALL_DISCONNECT = false;
 //    private com.listeners.SessionListeners sessionListeners = null;
 
     public static final String SUCCESS = "success";
@@ -71,6 +72,9 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
     private String MISSED_CALL = null;
     private boolean prev_command =false;
     private boolean call_initialized = false;
+    private boolean mCaller = false;
+    private boolean mDisconnect = false;
+    private boolean mMissedCall = false;
 
 
     @Override
@@ -89,6 +93,8 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
         try {
             prev_command =false;
+            mMissedCall = false;
+
 
             if (ACTION_INIT_CALL.equals(action)) {
                 mCallBackContext = callbackContext;
@@ -133,10 +139,12 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
                 }
                 return true;
             } else if(action!=null && action.equalsIgnoreCase("missedCall")){
+                mMissedCall = true;
                 endCall(action);
             }else if (ACTION_END_CALL.equalsIgnoreCase(action)) {
                 if(args != null){
                     String object = args.getString(0);
+                    mMissedCall = true;
                     endCall(object);
                 }else
                     disconnectCall();
@@ -160,7 +168,9 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 //            JSONObject object = args.getJSONObject(0);
 
         try {
+            mDisconnect = false;
             call_initialized = true;
+            CALL_DISCONNECT = false;
             String apiKey = args.get(0).toString();//.getString("apiKey");
             String sessonId = args.get(1).toString();//object.getString("sessonId");
             String sessonToken = args.get(2).toString();//object.getString("sessonToken");
@@ -181,11 +191,13 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
 
             if(mCallPerMinute != null && mCallPerMinute.equals("0")){
+                mCaller = false;
                 JSONObject json = getJson(Constants.RECEIVER_INITIALIZED, SUCCESS);
                 mCallBackContext.successMessage(json);
                 mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, false);
             }
             else{
+                mCaller = true;
                 JSONObject json = getJson(Constants.INITIALIZATION_COMPLETE, SUCCESS);
                 mCallBackContext.successMessage(json);
                 mSession = new MySession(cordova.getActivity(), this, apiKey, sessonId, true);
@@ -284,7 +296,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     @Override
     public void onVideoViewChange(boolean hasVideo) {
-        mCallBackContext.success("Video View Change");
+//        mCallBackContext.success("Video View Change");
         if (hasVideo) {
             mNoneView.setVisibility(View.INVISIBLE);
         } else {
@@ -358,9 +370,17 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     @Override
     public void onCallDisconnected() {
-        JSONObject json = getJson(Constants.CALL_END, SUCCESS);
-        mCallBackContext.successMessage(json);
         disconnectCall();
+        JSONObject json = null;
+        if(mMissedCall)
+            return;
+
+        if(mCaller)
+            json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
+        else
+            json = getJson(Constants.CALL_END, SUCCESS);
+
+        mCallBackContext.successMessage(json);
     }
 
     @Override
@@ -396,7 +416,16 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     @Override
     public void onCallEndBeforeConnect() {
-        JSONObject json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
+        JSONObject json = null;
+
+        if(mMissedCall)
+            return;
+
+        if(mDisconnect)
+            json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
+        else
+            json = getJson(Constants.CALL_END, SUCCESS);
+
         mCallBackContext.successMessage(json);
     }
 
@@ -440,6 +469,12 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
     private void disconnectCall() {
         try {
+
+            if (CALL_DISCONNECT)
+                return;
+
+            CALL_DISCONNECT = true;
+
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -483,6 +518,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
                 hideCam();
                 break;
             case R.id.iv_end_call:
+                mDisconnect = true;
                 disconnectCall();
                 break;
 
@@ -706,7 +742,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
         JSONObject jsonObj =null;
         try {
             if(message == null){
-               return new JSONObject("{\"data\":\"null\",\"status\":\"success\"}");
+                return new JSONObject("{\"data\":\"null\",\"status\":\"success\"}");
             }else if(message.equals(" ")){
                 return new JSONObject("{\"data\":"+message+",\"status\":\"success\"}");
             }
@@ -717,12 +753,12 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
                 else if(message.equals("Successfully disconnected !!"))
                     jsonObj = new JSONObject("{\"data\":\"Successfully disconnected !!\",\"status\":\"success\"}");
                 else
-                jsonObj = new JSONObject("{\"data\":"+message+",\"status\":\"success\"}");
+                    jsonObj = new JSONObject("{\"data\":"+message+",\"status\":\"success\"}");
 
                 return jsonObj;
 
             }else if(message_type.equals(ERROR)){
-                 jsonObj = new JSONObject("{\"data\":\"{\\\"networkType\\\":\\\"unknown\\\",\\\"error\\\":\\\"+message+\\\"}\",\"status\":\"failure\"}");
+                jsonObj = new JSONObject("{\"data\":\"{\\\"networkType\\\":\\\"unknown\\\",\\\"error\\\":\\\"+message+\\\"}\",\"status\":\"failure\"}");
                 return jsonObj;
             }
         }catch (Exception e){
