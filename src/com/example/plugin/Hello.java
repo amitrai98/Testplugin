@@ -741,10 +741,10 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
 
         JSONObject jsonObj =null;
         try {
-            if(message == null){
-                return new JSONObject("{\"data\":\"null\",\"status\":\"success\"}");
-            }else if(message.equals(" ")){
-                return new JSONObject("{\"data\":"+message+",\"status\":\"success\"}");
+            if(message == null || message.equalsIgnoreCase(" ")){
+                return new JSONObject("{\"data\":\" \",\"status\":\"success\"}");
+            }else if(message.isEmpty()){
+                return new JSONObject("{\"data\":\" \",\"status\":\"success\"}");
             }
 
             if(message_type.equals(SUCCESS)){
