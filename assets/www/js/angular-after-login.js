@@ -17,6 +17,8 @@ mainApp.controller( "dashBoardController", function( $scope, constantData, $http
     var userData = JSON.parse( user_detail ).data;
     // console.log(userData);
     var profileImg = localStorage.getItem( "profileData" );
+
+    // test
     $scope.profileImg =profileImg;
     // console.log($scope.profileImg);
     // alert($scope.profileImg);
