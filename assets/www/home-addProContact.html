@@ -11,12 +11,18 @@
 	        	<span class="glyphicon glyphicon-remove" ng-show="hideRemoveIcon" ></span>
 	        </a>
 		    <input type="search" class="form-control" placeholder="{{placeholder}}" ng-model="searchContact" ng-keyup="OnKeyupRemove($event)" autocorrect="off" autocapitalize="off"/>
-		</div>
-		<div class="searchIconContact">
-			<a href="javascript:;" ng-click="searchThisContact()">
-				<span class="glyphicon glyphicon-search">
+		    <a href="javascript:;">
+				<span class="glyphicon glyphicon-search innersearch">
 				</span>
 			</a>
+		</div>
+		<div class="searchIconContact">
+			<button type="button" ng-click="searchThisContact()">
+				<a href="javascript:;" >
+					<span class="glyphicon glyphicon-search">
+					</span>
+				</a>
+			</button>
 		</div>
 		<div class="no_result_msg" ng-show="Show_no_result_msg">
 			<p>{{no_result}}</p>
@@ -29,7 +35,7 @@
                 <button type="button" class="btn btn-default fullwidth fullwidth_blue" ng-click="saveContact()">Add to Contacts</button>
             </div>
 		</div>
-	    <p style="margin: 20px 0 0px !important;">
+	    <p style="margin: 20px -3px 0px !important;">
             Type a username above and click add to contacts
         </p>
 	</div>
