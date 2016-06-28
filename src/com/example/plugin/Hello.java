@@ -375,7 +375,7 @@ public class Hello extends CordovaPlugin implements SessionListeners, ActivityLi
         if(mMissedCall)
             return;
 
-        if(mCaller)
+        if(mCaller && !MySession.CALL_STARTED)
             json = getJson(Constants.CALL_ENDED_BY_RECEIVER, SUCCESS);
         else
             json = getJson(Constants.CALL_END, SUCCESS);
